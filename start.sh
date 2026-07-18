@@ -18,6 +18,24 @@ if ! command -v npm >/dev/null 2>&1; then
   exit 1
 fi
 
+# On WSL, PATH sometimes resolves npm/node to the Windows install (under
+# /mnt/c/...) instead of a Linux one. Windows' npm can't handle WSL's
+# \\wsl.localhost UNC path and fails with a cryptic CMD.EXE error, so catch
+# it early with a clearer message.
+if [ -n "${WSL_DISTRO_NAME:-}" ] || grep -qi microsoft /proc/version 2>/dev/null; then
+  NPM_PATH="$(command -v npm)"
+  case "$NPM_PATH" in
+    /mnt/*)
+      echo "npm resolves to a Windows install ($NPM_PATH), which doesn't work from WSL paths."
+      echo "Install Node.js inside WSL instead, e.g.:"
+      echo "  curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -"
+      echo "  sudo apt-get install -y nodejs"
+      echo "Then make sure a WSL-native npm comes first on PATH (check with: which npm)."
+      exit 1
+      ;;
+  esac
+fi
+
 if [ ! -d "$FRONTEND_DIR/node_modules" ]; then
   echo "Installing frontend dependencies..."
   (cd "$FRONTEND_DIR" && npm install)
