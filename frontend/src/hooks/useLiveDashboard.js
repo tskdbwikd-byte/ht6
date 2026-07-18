@@ -8,6 +8,9 @@ const INITIAL_DASHBOARD = {
   recentEvents: [],
   timeseries: [],
   topDomains: [],
+  blockedEvents: [],
+  topBlockedDomains: [],
+  blockedDomainTotal: 0,
 }
 
 const RECONNECT_DELAY_MS = 2000

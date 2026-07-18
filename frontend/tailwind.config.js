@@ -23,6 +23,7 @@ export default {
         },
         dns: { DEFAULT: 'var(--series-dns)' },
         tls: { DEFAULT: 'var(--series-tls)' },
+        blocked: { DEFAULT: 'var(--series-blocked)' },
         good: '#0ca30c',
         warning: '#fab219',
         serious: '#ec835a',

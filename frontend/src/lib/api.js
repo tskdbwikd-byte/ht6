@@ -50,3 +50,46 @@ export async function generateSuggestions() {
   }
   return res.json()
 }
+
+export async function getPresets() {
+  const res = await fetch('/api/blocklist/presets')
+  if (!res.ok) throw new Error('Failed to load community blocklists')
+  return res.json()
+}
+
+export async function enablePreset(presetId) {
+  const res = await fetch(`/api/blocklist/presets/${encodeURIComponent(presetId)}/enable`, { method: 'POST' })
+  if (!res.ok) {
+    const body = await res.json().catch(() => ({}))
+    throw new Error(body.detail || 'Failed to enable blocklist')
+  }
+  return res.json()
+}
+
+export async function disablePreset(presetId) {
+  const res = await fetch(`/api/blocklist/presets/${encodeURIComponent(presetId)}/disable`, { method: 'POST' })
+  if (!res.ok) {
+    const body = await res.json().catch(() => ({}))
+    throw new Error(body.detail || 'Failed to disable blocklist')
+  }
+  return res.json()
+}
+
+export async function clearActivity() {
+  const res = await fetch('/api/activity/reset', { method: 'POST' })
+  if (!res.ok) throw new Error('Failed to clear activity')
+  return res.json()
+}
+
+export async function sendChatMessage(message, history = []) {
+  const res = await fetch('/api/chat', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ message, history }),
+  })
+  if (!res.ok) {
+    const body = await res.json().catch(() => ({}))
+    throw new Error(body.detail || 'Failed to reach the assistant')
+  }
+  return res.json()
+}

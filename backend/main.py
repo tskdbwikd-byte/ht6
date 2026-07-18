@@ -16,6 +16,8 @@ if str(ROOT_DIR) not in sys.path:
     sys.path.append(str(ROOT_DIR))
 
 from blocklist_store import BlocklistStore
+from chat import OLLAMA_CHAT_URL, build_messages
+from preset_blocklists import PRESETS
 from suggestions import MAX_CANDIDATES, OLLAMA_MODEL, OLLAMA_URL, build_prompt, parse_suggestions
 from traffic_store import TrafficStore
 
@@ -39,6 +41,9 @@ def build_dashboard_payload() -> dict[str, Any]:
         "recentEvents": snapshot["recent_events"][:10],
         "timeseries": snapshot["timeseries"],
         "topDomains": snapshot["top_domains"],
+        "blockedEvents": snapshot["blocked_events"],
+        "topBlockedDomains": snapshot["top_blocked_domains"],
+        "blockedDomainTotal": snapshot["blocked_domain_total"],
     }
 
 
@@ -91,6 +96,12 @@ def dashboard():
     return build_dashboard_payload()
 
 
+@app.post("/api/activity/reset")
+def reset_activity():
+    STORE.reset_activity()
+    return build_dashboard_payload()
+
+
 class PowerUpdate(BaseModel):
     on: bool
 
@@ -132,6 +143,42 @@ def remove_blocklist(domain: str):
     return {"domains": BLOCKLIST.snapshot()}
 
 
+def build_preset_status() -> list[dict[str, Any]]:
+    enabled = BLOCKLIST.enabled_presets()
+    return [
+        {
+            "id": preset_id,
+            "name": preset["name"],
+            "description": preset["description"],
+            "domain_count": len(preset["domains"]),
+            "enabled": preset_id in enabled,
+        }
+        for preset_id, preset in PRESETS.items()
+    ]
+
+
+@app.get("/api/blocklist/presets")
+def list_presets():
+    return {"presets": build_preset_status()}
+
+
+@app.post("/api/blocklist/presets/{preset_id}/enable")
+def enable_preset(preset_id: str):
+    preset = PRESETS.get(preset_id)
+    if not preset:
+        raise HTTPException(status_code=404, detail="Unknown preset")
+    BLOCKLIST.enable_preset(preset_id, preset["domains"], reason=f"From community list: {preset['name']}")
+    return {"domains": BLOCKLIST.snapshot(), "presets": build_preset_status()}
+
+
+@app.post("/api/blocklist/presets/{preset_id}/disable")
+def disable_preset(preset_id: str):
+    if preset_id not in PRESETS:
+        raise HTTPException(status_code=404, detail="Unknown preset")
+    BLOCKLIST.disable_preset(preset_id)
+    return {"domains": BLOCKLIST.snapshot(), "presets": build_preset_status()}
+
+
 @app.post("/api/suggestions/generate")
 async def generate_suggestions():
     snapshot = STORE.snapshot()
@@ -157,6 +204,41 @@ async def generate_suggestions():
     candidate_domains = {c["domain"] for c in candidates}
     suggestions = parse_suggestions(payload.get("response", ""), blocked_domains, candidate_domains)
     return {"suggestions": suggestions}
+
+
+class ChatMessage(BaseModel):
+    role: str
+    content: str
+
+
+class ChatRequest(BaseModel):
+    message: str
+    history: list[ChatMessage] = []
+
+
+@app.post("/api/chat")
+async def chat(request: ChatRequest):
+    messages = build_messages(
+        message=request.message,
+        history=[item.model_dump() for item in request.history],
+        traffic_snapshot=STORE.snapshot(),
+        blocklist_snapshot=BLOCKLIST.snapshot(),
+        enabled_presets=[PRESETS[pid]["name"] for pid in BLOCKLIST.enabled_presets() if pid in PRESETS],
+    )
+
+    try:
+        async with httpx.AsyncClient(timeout=90) as client:
+            resp = await client.post(
+                OLLAMA_CHAT_URL,
+                json={"model": OLLAMA_MODEL, "messages": messages, "stream": False},
+            )
+            resp.raise_for_status()
+            payload = resp.json()
+    except httpx.HTTPError as exc:
+        raise HTTPException(status_code=502, detail=f"Ollama unavailable: {exc}") from exc
+
+    reply = payload.get("message", {}).get("content", "").strip()
+    return {"reply": reply or "I couldn't come up with a response for that."}
 
 
 @app.websocket("/ws/dashboard")

@@ -37,12 +37,16 @@ class BlocklistStore:
             "domains": {
                 domain: {"added_at": now, "source": "seed", "reason": "Known ad/tracker domain"}
                 for domain in SEED_DOMAINS
-            }
+            },
+            "enabled_presets": [],
         }
 
     @staticmethod
     def _normalize(data: dict[str, Any]) -> dict[str, Any]:
-        return {"domains": dict(data.get("domains", {}))}
+        return {
+            "domains": dict(data.get("domains", {})),
+            "enabled_presets": list(data.get("enabled_presets", [])),
+        }
 
     @contextmanager
     def _transact(self) -> Iterator[dict[str, Any]]:
@@ -111,3 +115,35 @@ class BlocklistStore:
             if domain == blocked or domain.endswith("." + blocked):
                 return True
         return False
+
+    def enabled_presets(self) -> set[str]:
+        return set(self._read_locked()["enabled_presets"])
+
+    def enable_preset(self, preset_id: str, domains: list[str], reason: str | None = None) -> int:
+        source = f"preset:{preset_id}"
+        added = 0
+        with self._transact() as state:
+            for domain in domains:
+                domain = self._normalize_domain(domain)
+                if not domain or domain in state["domains"]:
+                    continue
+                state["domains"][domain] = {
+                    "added_at": datetime.now(timezone.utc).isoformat(),
+                    "source": source,
+                    "reason": reason,
+                }
+                added += 1
+            if preset_id not in state["enabled_presets"]:
+                state["enabled_presets"].append(preset_id)
+        return added
+
+    def disable_preset(self, preset_id: str) -> int:
+        source = f"preset:{preset_id}"
+        removed = 0
+        with self._transact() as state:
+            for domain in [d for d, meta in state["domains"].items() if meta.get("source") == source]:
+                del state["domains"][domain]
+                removed += 1
+            if preset_id in state["enabled_presets"]:
+                state["enabled_presets"].remove(preset_id)
+        return removed

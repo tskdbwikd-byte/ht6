@@ -102,7 +102,7 @@ def handle_packet(pkt):
             "domain": domain,
             "source": src_ip,
             "destination": "dns",
-            "timestamp": datetime.datetime.now().isoformat(),
+            "timestamp": datetime.datetime.now(datetime.timezone.utc).isoformat(),
         })
         return
 
@@ -123,7 +123,7 @@ def handle_packet(pkt):
                 "domain": sni,
                 "source": src_ip,
                 "destination": dst_ip,
-                "timestamp": datetime.datetime.now().isoformat(),
+                "timestamp": datetime.datetime.now(datetime.timezone.utc).isoformat(),
             })
 
 

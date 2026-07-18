@@ -2,14 +2,18 @@ import fcntl
 import json
 import threading
 from contextlib import contextmanager
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Iterator
 
-MINUTE_BUCKETS_KEPT = 30
+TIME_BUCKETS_KEPT = 180  # seconds of 1s-resolution history to keep for the live chart
 DOMAIN_COUNTS_CAP = 500
 TOP_DOMAINS_RETURNED = 20
 KNOWN_TOTAL_KEYS = ("events", "dns", "tls")
+BLOCKED_EVENTS_CAP = 500
+BLOCKED_EVENTS_RETURNED = 100
+BLOCKED_DOMAINS_CAP = 500
+TOP_BLOCKED_DOMAINS_RETURNED = 20
 
 
 class TrafficStore:
@@ -36,6 +40,8 @@ class TrafficStore:
             "minute_buckets": {},
             "domain_counts": {},
             "power": True,
+            "blocked_events": [],
+            "blocked_domain_counts": {},
         }
 
     @staticmethod
@@ -51,6 +57,8 @@ class TrafficStore:
             "minute_buckets": dict(data.get("minute_buckets", {})),
             "domain_counts": dict(data.get("domain_counts", {})),
             "power": bool(data.get("power", True)),
+            "blocked_events": list(data.get("blocked_events", [])),
+            "blocked_domain_counts": dict(data.get("blocked_domain_counts", {})),
         }
 
     @contextmanager
@@ -88,13 +96,13 @@ class TrafficStore:
             dt = datetime.fromisoformat(timestamp)
         except ValueError:
             dt = datetime.now(timezone.utc)
-        return dt.strftime("%Y-%m-%dT%H:%M")
+        return dt.strftime("%Y-%m-%dT%H:%M:%S")
 
     @staticmethod
     def _trim_buckets(buckets: dict[str, Any]) -> dict[str, Any]:
-        if len(buckets) <= MINUTE_BUCKETS_KEPT:
+        if len(buckets) <= TIME_BUCKETS_KEPT:
             return buckets
-        return dict(sorted(buckets.items())[-MINUTE_BUCKETS_KEPT:])
+        return dict(sorted(buckets.items())[-TIME_BUCKETS_KEPT:])
 
     @staticmethod
     def _trim_domains(domains: dict[str, int]) -> dict[str, int]:
@@ -130,16 +138,38 @@ class TrafficStore:
             state["domain_counts"][domain] = int(state["domain_counts"].get(domain, 0)) + 1
             state["domain_counts"] = self._trim_domains(state["domain_counts"])
 
+            if event_type == "blocked":
+                state["blocked_events"].insert(0, payload)
+                state["blocked_events"] = state["blocked_events"][:BLOCKED_EVENTS_CAP]
+                state["blocked_domain_counts"][domain] = (
+                    int(state["blocked_domain_counts"].get(domain, 0)) + 1
+                )
+                if len(state["blocked_domain_counts"]) > BLOCKED_DOMAINS_CAP:
+                    ranked = sorted(
+                        state["blocked_domain_counts"].items(), key=lambda kv: kv[1], reverse=True
+                    )
+                    state["blocked_domain_counts"] = dict(ranked[:BLOCKED_DOMAINS_CAP])
+
     def snapshot(self) -> dict[str, Any]:
         state = self._read_locked()
-        timeseries = [
-            {"minute": minute, **counts} for minute, counts in sorted(state["minute_buckets"].items())
-        ]
+        empty_bucket = {"events": 0, "dns": 0, "tls": 0, "blocked": 0}
+        now = datetime.now(timezone.utc)
+        timeseries = []
+        for offset in range(TIME_BUCKETS_KEPT - 1, -1, -1):
+            key = (now - timedelta(seconds=offset)).strftime("%Y-%m-%dT%H:%M:%S")
+            counts = {**empty_bucket, **state["minute_buckets"].get(key, {})}
+            timeseries.append({"minute": key, **counts})
         top_domains = [
             {"domain": domain, "count": count}
             for domain, count in sorted(state["domain_counts"].items(), key=lambda kv: kv[1], reverse=True)[
                 :TOP_DOMAINS_RETURNED
             ]
+        ]
+        top_blocked_domains = [
+            {"domain": domain, "count": count}
+            for domain, count in sorted(
+                state["blocked_domain_counts"].items(), key=lambda kv: kv[1], reverse=True
+            )[:TOP_BLOCKED_DOMAINS_RETURNED]
         ]
         return {
             "totals": state["totals"],
@@ -149,6 +179,9 @@ class TrafficStore:
             "top_domains": top_domains,
             "domain_total": len(state["domain_counts"]),
             "power": state["power"],
+            "blocked_events": state["blocked_events"][:BLOCKED_EVENTS_RETURNED],
+            "top_blocked_domains": top_blocked_domains,
+            "blocked_domain_total": len(state["blocked_domain_counts"]),
         }
 
     def get_power(self) -> bool:
@@ -158,3 +191,13 @@ class TrafficStore:
         with self._transact() as state:
             state["power"] = bool(on)
         return bool(on)
+
+    def reset_activity(self) -> None:
+        with self._transact() as state:
+            state["totals"] = {"events": 0, "dns": 0, "tls": 0}
+            state["recent_events"] = []
+            state["last_event"] = None
+            state["minute_buckets"] = {}
+            state["domain_counts"] = {}
+            state["blocked_events"] = []
+            state["blocked_domain_counts"] = {}

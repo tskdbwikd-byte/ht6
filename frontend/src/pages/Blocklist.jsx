@@ -1,11 +1,19 @@
 import { useCallback, useEffect, useState } from 'react'
+import ChatPanel from '../components/ChatPanel'
 import { ListIcon, SparkleIcon, TrashIcon } from '../components/icons'
+import PresetBlocklists from '../components/PresetBlocklists'
 import { addBlockedDomain, generateSuggestions, getBlocklist, removeBlockedDomain } from '../lib/api'
 
 const SOURCE_LABEL = {
   seed: 'Starter list',
   manual: 'Manual',
   ollama: 'Ollama suggestion',
+}
+
+function sourceLabel(source) {
+  if (SOURCE_LABEL[source]) return SOURCE_LABEL[source]
+  if (source?.startsWith('preset:')) return 'Community list'
+  return source
 }
 
 function formatDate(iso) {
@@ -126,7 +134,7 @@ function Blocklist() {
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div className="flex items-center gap-2">
             <SparkleIcon className="h-4 w-4 text-brand" />
-            <h2 className="text-lg font-semibold text-ink">Analyze recent traffic</h2>
+            <h2 className="text-lg font-semibold text-ink">AI traffic assistant</h2>
           </div>
           <button
             type="button"
@@ -139,7 +147,8 @@ function Blocklist() {
         </div>
         <p className="mt-2 text-sm text-ink-muted">
           Sends your most-contacted domains to a local Ollama model, which flags anything that looks like a
-          tracker or ad endpoint your blocklist missed.
+          tracker or ad endpoint your blocklist missed. Use the chat below to ask about recent traffic or
+          blocklists directly.
         </p>
 
         {suggestError && <p className="mt-3 rounded-xl px-3 py-2 text-sm alert-critical">{suggestError}</p>}
@@ -180,7 +189,13 @@ function Blocklist() {
         {suggestions && suggestions.length === 0 && !suggestNote && (
           <p className="mt-3 text-sm text-ink-muted">No new tracker-like domains found in recent traffic.</p>
         )}
+
+        <div className="mt-4">
+          <ChatPanel />
+        </div>
       </section>
+
+      <PresetBlocklists onChange={setDomains} />
 
       <section className="mt-4 rounded-2xl border border-hairline bg-surface p-5 shadow-card">
         <h2 className="text-lg font-semibold text-ink">Add a domain manually</h2>
@@ -214,23 +229,22 @@ function Blocklist() {
         {loading ? (
           <p className="mt-4 text-sm text-ink-muted">Loading…</p>
         ) : domains.length > 0 ? (
-          <ul className="mt-4 divide-y divide-hairline">
+          <ul className="mt-3 max-h-96 divide-y divide-hairline overflow-y-auto">
             {domains.map((entry) => (
-              <li key={entry.domain} className="flex items-center gap-3 py-3">
-                <div className="min-w-0 flex-1">
-                  <p className="truncate text-sm font-medium text-ink">{entry.domain}</p>
-                  <p className="mt-0.5 truncate text-xs text-ink-muted">
-                    {SOURCE_LABEL[entry.source] ?? entry.source} · added {formatDate(entry.added_at)}
-                    {entry.reason ? ` · ${entry.reason}` : ''}
-                  </p>
+              <li key={entry.domain} className="flex items-center gap-2 py-1.5">
+                <div className="min-w-0 flex-1 truncate text-sm">
+                  <span className="font-medium text-ink">{entry.domain}</span>
+                  <span className="ml-2 text-xs text-ink-muted">
+                    {sourceLabel(entry.source)} · {formatDate(entry.added_at)}
+                  </span>
                 </div>
                 <button
                   type="button"
                   onClick={() => handleRemove(entry.domain)}
-                  className="icon-btn-danger shrink-0 rounded-full p-2 text-ink-muted transition"
+                  className="icon-btn-danger shrink-0 rounded-full p-1.5 text-ink-muted transition"
                   aria-label={`Remove ${entry.domain}`}
                 >
-                  <TrashIcon className="h-4 w-4" />
+                  <TrashIcon className="h-3.5 w-3.5" />
                 </button>
               </li>
             ))}

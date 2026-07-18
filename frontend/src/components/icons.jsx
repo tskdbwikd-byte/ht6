@@ -83,3 +83,38 @@ export function CloseIcon(props) {
     </svg>
   )
 }
+
+export function ChatIcon(props) {
+  return (
+    <svg viewBox="0 0 24 24" {...base} {...props}>
+      <path d="M4 5h16v11H8l-4 4V5z" />
+    </svg>
+  )
+}
+
+export function SendIcon(props) {
+  return (
+    <svg viewBox="0 0 24 24" {...base} {...props}>
+      <path d="M4 12l16-8-6 8 6 8-16-8z" />
+    </svg>
+  )
+}
+
+export function BanIcon(props) {
+  return (
+    <svg viewBox="0 0 24 24" {...base} {...props}>
+      <circle cx="12" cy="12" r="8.5" />
+      <path d="M6.3 6.3l11.4 11.4" />
+    </svg>
+  )
+}
+
+export function GlobeIcon(props) {
+  return (
+    <svg viewBox="0 0 24 24" {...base} {...props}>
+      <circle cx="12" cy="12" r="8.5" />
+      <path d="M3.5 12h17" />
+      <path d="M12 3.5c2.5 2.4 3.8 5.4 3.8 8.5s-1.3 6.1-3.8 8.5c-2.5-2.4-3.8-5.4-3.8-8.5S9.5 5.9 12 3.5z" />
+    </svg>
+  )
+}

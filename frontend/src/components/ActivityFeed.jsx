@@ -1,3 +1,6 @@
+import { useState } from 'react'
+import { clearActivity } from '../lib/api'
+
 function relativeTime(iso) {
   const then = new Date(iso).getTime()
   if (Number.isNaN(then)) return ''
@@ -17,10 +20,38 @@ const TYPE_BADGE = {
 }
 
 function ActivityFeed({ events }) {
+  const [pending, setPending] = useState(false)
+  const [error, setError] = useState(null)
+
+  const handleClear = async () => {
+    setPending(true)
+    setError(null)
+    try {
+      await clearActivity()
+    } catch (err) {
+      setError(err.message)
+    } finally {
+      setPending(false)
+    }
+  }
+
   return (
     <div className="rounded-2xl border border-hairline bg-surface p-5 shadow-card">
-      <p className="text-sm font-medium text-ink-secondary">Live feed</p>
-      <h3 className="text-lg font-semibold text-ink">Recent activity</h3>
+      <div className="flex items-start justify-between gap-3">
+        <div>
+          <p className="text-sm font-medium text-ink-secondary">Live feed</p>
+          <h3 className="text-lg font-semibold text-ink">Recent activity</h3>
+        </div>
+        <button
+          type="button"
+          onClick={handleClear}
+          disabled={pending || events.length === 0}
+          className="shrink-0 rounded-full border border-hairline px-3 py-1.5 text-xs font-medium text-ink-muted transition hover:bg-page disabled:opacity-60"
+        >
+          {pending ? 'Clearing…' : 'Clear'}
+        </button>
+      </div>
+      {error && <p className="mt-2 text-sm text-critical">{error}</p>}
       <ul className="mt-4 max-h-80 space-y-1 overflow-y-auto">
         {events.length > 0 ? (
           events.map((event, index) => (
