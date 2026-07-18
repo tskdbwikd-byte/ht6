@@ -36,7 +36,7 @@ if [ -n "${WSL_DISTRO_NAME:-}" ] || grep -qi microsoft /proc/version 2>/dev/null
   esac
 fi
 
-if [ ! -d "$FRONTEND_DIR/node_modules" ]; then
+if [ ! -d "$FRONTEND_DIR/node_modules" ] || [ "$FRONTEND_DIR/package-lock.json" -nt "$FRONTEND_DIR/node_modules" ]; then
   echo "Installing frontend dependencies..."
   (cd "$FRONTEND_DIR" && npm install)
 fi
