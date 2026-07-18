@@ -29,7 +29,7 @@ export default {
         critical: '#d03b3b',
       },
       fontFamily: {
-        display: ['Outfit', 'system-ui', 'sans-serif'],
+        display: ['"Instrument Serif"', 'Georgia', 'serif'],
         sans: ['Nunito Sans', 'system-ui', 'sans-serif'],
         mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
       },

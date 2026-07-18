@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" fill="none">
+  <!-- Pixel parasol canopy (hotspot ~ center of dome) -->
+  <rect x="8" y="14" width="4" height="4" fill="#4A9B8C"/>
+  <rect x="12" y="10" width="4" height="4" fill="#5BB3A3"/>
+  <rect x="16" y="8" width="4" height="4" fill="#4A9B8C"/>
+  <rect x="20" y="6" width="8" height="4" fill="#5BB3A3"/>
+  <rect x="28" y="8" width="4" height="4" fill="#4A9B8C"/>
+  <rect x="32" y="10" width="4" height="4" fill="#5BB3A3"/>
+  <rect x="36" y="14" width="4" height="4" fill="#4A9B8C"/>
+  <rect x="10" y="14" width="28" height="4" fill="#3D8A7C"/>
+  <rect x="12" y="18" width="24" height="4" fill="#357a6e"/>
+  <!-- Pole -->
+  <rect x="22" y="22" width="4" height="18" fill="#6B7C85"/>
+  <!-- Tip -->
+  <rect x="22" y="4" width="4" height="2" fill="#3D8A7C"/>
+</svg>

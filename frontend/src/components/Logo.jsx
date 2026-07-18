@@ -22,7 +22,7 @@ export function Logo({ size = 'md', showWordmark = true, className = '' }) {
     <span className={`inline-flex items-center gap-2.5 ${className}`}>
       <ParasolMark className={markSize} />
       {showWordmark && (
-        <span className={`font-display font-semibold tracking-tight text-ink ${textSize}`}>
+        <span className={`font-display font-normal tracking-tight text-ink ${textSize}`}>
           Parasol
         </span>
       )}

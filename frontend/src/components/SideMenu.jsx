@@ -21,7 +21,7 @@ export default function SideMenu() {
     <>
       <button
         type="button"
-        className="fixed left-5 top-5 z-50 flex h-11 w-11 items-center justify-center rounded-xl bg-white/80 text-ink shadow-card backdrop-blur-sm transition hover:bg-white"
+        className="fixed left-5 top-5 z-50 flex h-11 w-11 cursor-pointer items-center justify-center rounded-xl bg-white/80 text-ink shadow-card backdrop-blur-sm transition hover:bg-white"
         aria-label={open ? 'Close menu' : 'Open menu'}
         aria-expanded={open}
         onClick={() => setOpen((value) => !value)}
@@ -44,7 +44,7 @@ export default function SideMenu() {
         }`}
         aria-hidden={!open}
       >
-        <p className="mb-8 px-3 font-display text-lg font-semibold tracking-tight">Menu</p>
+        <p className="mb-8 px-3 font-display text-lg font-normal tracking-tight">Menu</p>
         <nav className="flex flex-1 flex-col gap-1" aria-label="Main">
           <Link
             to="/dashboard"

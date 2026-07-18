@@ -1,13 +1,13 @@
 import { useEffect, useRef } from 'react'
 
 const PIXEL = 3
-const UMBRELLA_RADIUS = 88
-const GRAVITY = 0.045
-const DRIFT = 0.012
-const FRICTION = 0.985
-const REPULSE = 0.55
-const TANGENT = 0.38
-const CURSOR_LERP = 0.12
+const DROP_W = 2
+const DROP_H = 5
+const UMBRELLA_RADIUS = 110
+const GRAVITY = 0.055
+const DRIFT = 0.01
+const FRICTION = 0.992
+const CURSOR_LERP = 0.18
 const CLOUD_COLORS = ['#d4e6ee', '#c5dce8', '#b8d4e2', '#a9cbdc']
 const RAIN_COLOR = 'rgba(110, 150, 170, 0.45)'
 
@@ -23,16 +23,13 @@ function createDrop(width, height, randomY = false) {
   return {
     x: Math.random() * width,
     y: randomY ? Math.random() * height : -Math.random() * 40 - 8,
-    vx: (Math.random() - 0.5) * 0.15,
-    vy: 0.8 + Math.random() * 1.1,
-    size: PIXEL + (Math.random() > 0.7 ? PIXEL : 0),
-    length: PIXEL * (1 + Math.floor(Math.random() * 2)),
+    vx: (Math.random() - 0.5) * 0.12,
+    vy: 1.0 + Math.random() * 0.35,
   }
 }
 
 function buildClouds(width) {
   const clouds = []
-  const bandHeight = 72
   let x = -40
 
   while (x < width + 80) {
@@ -60,7 +57,7 @@ function buildClouds(width) {
     x += 48 + Math.random() * 36
   }
 
-  return { clouds, bandHeight }
+  return clouds
 }
 
 function drawCloud(ctx, cloud) {
@@ -76,41 +73,82 @@ function drawCloud(ctx, cloud) {
   }
 }
 
+/** Pixel umbrella drawn with hotspot at canopy center (cx, cy). */
+function drawUmbrellaCursor(ctx, cx, cy) {
+  const p = 5
+  const ox = Math.round(cx - 7 * p)
+  const oy = Math.round(cy - 3 * p)
+
+  const fill = (x, y, w, h, color) => {
+    ctx.fillStyle = color
+    ctx.fillRect(ox + x * p, oy + y * p, w * p, h * p)
+  }
+
+  fill(6, 0, 2, 1, '#3D8A7C') // tip
+  fill(2, 3, 1, 1, '#4A9B8C')
+  fill(3, 2, 1, 1, '#5BB3A3')
+  fill(4, 1, 1, 1, '#4A9B8C')
+  fill(5, 1, 4, 1, '#5BB3A3')
+  fill(9, 1, 1, 1, '#4A9B8C')
+  fill(10, 2, 1, 1, '#5BB3A3')
+  fill(11, 3, 1, 1, '#4A9B8C')
+  fill(2, 3, 10, 1, '#3D8A7C')
+  fill(3, 4, 8, 1, '#357a6e')
+  fill(6, 5, 2, 8, '#6B7C85') // pole
+}
+
 /**
- * Soft dome force: radial push + tangential slide so drops curve around the cursor.
+ * Canopy collision: drops stay on the dome surface and slide downhill
+ * (outward + downward). Never bounce upward.
  */
 function applyUmbrella(drop, cx, cy, radius, active) {
   if (!active) return
 
   const dx = drop.x - cx
   const dy = drop.y - cy
+
+  // Only the canopy (upper dome). Below the rim, rain falls freely.
+  if (dy > radius * 0.2) return
+
   const distSq = dx * dx + dy * dy
   const r = radius
-  if (distSq >= r * r || distSq < 0.0001) return
+  if (distSq >= r * r) return
 
-  const dist = Math.sqrt(distSq)
+  const dist = Math.sqrt(distSq) || 0.0001
   const nx = dx / dist
   const ny = dy / dist
-  // Stronger near the rim contact and softer deeper inside for a dome feel
-  const t = 1 - dist / r
-  const soft = t * t * (3 - 2 * t) // smoothstep
-  const force = soft * REPULSE
 
-  // Radial out (blocked / shed)
-  drop.vx += nx * force * 1.15
-  drop.vy += ny * force * 0.55
-
-  // Tangential slide so motion curves around instead of bouncing straight back
-  const tx = -ny
-  const ty = nx
-  const side = dx >= 0 ? 1 : -1
-  drop.vx += tx * side * soft * TANGENT
-  drop.vy += ty * side * soft * TANGENT * 0.35
-
-  // Slightly lift drops that hit the top of the dome so they spill off
-  if (dy < 0) {
-    drop.vy -= soft * 0.2
+  // Past the lower sides of the circle → shed outward and fall
+  if (ny > 0.05) {
+    const side = Math.sign(dx) || Math.sign(drop.vx) || 1
+    drop.vx += side * 0.35
+    drop.vy = Math.max(drop.vy, 0.85)
+    return
   }
+
+  // Snap to outer surface (blocked by fabric)
+  const surface = r + 0.75
+  drop.x = cx + nx * surface
+  drop.y = cy + ny * surface
+
+  // Downhill tangent: slide away from the apex along the dome
+  const side = Math.sign(dx) || Math.sign(drop.vx) || (Math.random() < 0.5 ? -1 : 1)
+  let tx = -ny
+  let ty = nx
+  if (tx * side < 0) {
+    tx = -tx
+    ty = -ty
+  }
+
+  // Keep motion along the canopy, always with a downward component
+  const fallSpeed = Math.max(drop.vy, 0.55)
+  const slide = fallSpeed * 1.05 + 0.15
+
+  drop.vx = tx * slide
+  drop.vy = Math.max(ty * slide, 0.4)
+
+  // Extra outward slip so drops clear the rim instead of oscillating
+  drop.vx += side * 0.15
 }
 
 export default function RainHero() {
@@ -135,8 +173,10 @@ export default function RainHero() {
     let raf = 0
     let running = true
 
-    const mouse = { x: 0, y: 0, targetX: 0, targetY: 0, inside: false }
+    const mouse = { x: 0, y: 0, targetX: 0, targetY: 0, inside: false, seen: false }
     const umbrella = { x: 0, y: 0 }
+
+    const root = canvas.parentElement
 
     const resize = () => {
       dpr = Math.min(window.devicePixelRatio || 1, 2)
@@ -148,11 +188,11 @@ export default function RainHero() {
       canvas.style.height = `${height}px`
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
 
-      const density = Math.min(140, Math.max(48, Math.floor(width / 10)))
+      const density = Math.min(180, Math.max(64, Math.floor(width / 8)))
       drops = Array.from({ length: reduced ? Math.floor(density * 0.35) : density }, () =>
         createDrop(width, height, true),
       )
-      clouds = buildClouds(width).clouds
+      clouds = buildClouds(width)
       umbrella.x = width * 0.5
       umbrella.y = height * 0.45
       mouse.targetX = umbrella.x
@@ -166,6 +206,7 @@ export default function RainHero() {
       mouse.targetX = event.clientX
       mouse.targetY = event.clientY
       mouse.inside = true
+      mouse.seen = true
     }
 
     const onPointerLeave = () => {
@@ -177,13 +218,16 @@ export default function RainHero() {
       if (running && !raf) raf = requestAnimationFrame(frame)
     }
 
+    if (interactive && root) {
+      root.classList.add('cursor-none')
+    }
+
     const frame = () => {
       raf = 0
       if (!running) return
 
       ctx.clearRect(0, 0, width, height)
 
-      // Soft sky wash behind clouds
       const grad = ctx.createLinearGradient(0, 0, 0, 120)
       grad.addColorStop(0, 'rgba(200, 224, 234, 0.35)')
       grad.addColorStop(1, 'rgba(200, 224, 234, 0)')
@@ -214,7 +258,10 @@ export default function RainHero() {
         applyUmbrella(drop, umbrella.x, umbrella.y, UMBRELLA_RADIUS, activeUmbrella)
 
         drop.vx *= FRICTION
-        drop.vy = Math.min(drop.vy, 3.2)
+        drop.vy = Math.min(Math.max(drop.vy, 0.05), 3.4)
+        // Hard rule: after umbrella contact handling, never allow upward motion
+        if (drop.vy < 0) drop.vy = 0.25
+
         drop.x += drop.vx
         drop.y += drop.vy
 
@@ -224,7 +271,11 @@ export default function RainHero() {
 
         const px = Math.round(drop.x / PIXEL) * PIXEL
         const py = Math.round(drop.y / PIXEL) * PIXEL
-        ctx.fillRect(px, py, drop.size, drop.length)
+        ctx.fillRect(px, py, DROP_W, DROP_H)
+      }
+
+      if (interactive && mouse.seen) {
+        drawUmbrellaCursor(ctx, umbrella.x, umbrella.y)
       }
 
       raf = requestAnimationFrame(frame)
@@ -244,6 +295,7 @@ export default function RainHero() {
       window.removeEventListener('pointermove', onPointerMove)
       document.documentElement.removeEventListener('pointerleave', onPointerLeave)
       document.removeEventListener('visibilitychange', onVisibility)
+      if (root) root.classList.remove('cursor-none')
     }
   }, [])
 

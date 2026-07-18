@@ -13,7 +13,7 @@ function Dashboard() {
       <header className="flex flex-wrap items-center justify-between gap-4">
         <div>
           <p className="text-sm font-medium text-ink-secondary">Overview</p>
-          <h1 className="font-display text-2xl font-semibold tracking-tight text-ink">
+          <h1 className="font-display text-2xl font-normal tracking-tight text-ink">
             Network activity
           </h1>
         </div>
