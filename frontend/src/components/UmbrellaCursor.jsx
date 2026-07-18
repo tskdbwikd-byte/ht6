@@ -91,6 +91,20 @@ export const UMBRELLA_VIEW_W = 16 * P
 export const UMBRELLA_VIEW_H = 17 * P
 export const UMBRELLA_HOTSPOT = { x: 8 * P, y: 4 * P }
 
+/** Static open-umbrella mark for logos / headers (same art as the landing cursor). */
+export function OpenUmbrellaMark({ className = 'h-11 w-11', ...props }) {
+  return (
+    <svg
+      viewBox={`0 0 ${UMBRELLA_VIEW_W} ${UMBRELLA_VIEW_H}`}
+      className={className}
+      aria-hidden="true"
+      {...props}
+    >
+      <OpenUmbrellaArt />
+    </svg>
+  )
+}
+
 const UmbrellaCursor = forwardRef(function UmbrellaCursor({ closed = false }, ref) {
   return (
     <svg

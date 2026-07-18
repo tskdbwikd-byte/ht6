@@ -17,8 +17,8 @@ export default function DashboardLayout() {
     <div className="flex min-h-screen bg-page text-ink">
       <aside className="flex w-60 shrink-0 flex-col border-r border-white/10 bg-[#1a2b28] px-4 py-6 text-white">
         <Link to="/" className="mb-8 flex items-center gap-2.5 px-2">
-          <Logo size="sm" showWordmark={false} />
-          <span className="font-display text-lg font-normal tracking-tight">Parasol</span>
+          <Logo size="md" showWordmark={false} />
+          <span className="font-display text-xl font-normal tracking-tight">Parasol</span>
         </Link>
 
         <nav className="flex flex-1 flex-col gap-1">
