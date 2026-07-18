@@ -72,12 +72,16 @@ function ClosedUmbrellaArt() {
       <Pixel x={6} y={5} w={4} fill={COLORS.deep} />
       <Pixel x={6} y={6} w={4} fill={COLORS.dark} />
       <Pixel x={6} y={7} w={4} fill={COLORS.rib} />
+      <Pixel x={5} y={8} w={6} fill={COLORS.deep} />
+      <Pixel x={5} y={9} w={6} fill={COLORS.mid} />
+      <Pixel x={6} y={10} w={4} fill={COLORS.light} />
+      <Pixel x={6} y={11} w={4} fill={COLORS.light} />
 
       <Pixel x={7} y={1} h={7} fill={COLORS.rib} />
       <Pixel x={8} y={2} h={5} fill={COLORS.dark} />
 
-      <Pixel x={7} y={8} w={2} h={7} fill={COLORS.pole} />
-      <Pixel x={7} y={8} h={7} fill={COLORS.poleShade} />
+      <Pixel x={7} y={12} w={2} h={4} fill={COLORS.pole} />
+      <Pixel x={7} y={12} h={4} fill={COLORS.poleShade} />
 
       <Pixel x={7} y={15} w={2} fill={COLORS.poleShade} />
       <Pixel x={5} y={16} w={4} fill={COLORS.handle} />

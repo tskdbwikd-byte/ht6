@@ -97,6 +97,7 @@ export default function CatBuddy({ hovered }) {
   }, [])
 
   const catBottom = GROUND_H - CAT_PAD_BOTTOM - CAT_GROUND_OVERLAP
+  const bubbleVisible = hovered && showing
 
   return (
     <div className="pointer-events-none absolute inset-0 z-[25]" aria-hidden="true">
@@ -106,7 +107,7 @@ export default function CatBuddy({ hovered }) {
         style={{
           right: CAT_RIGHT + CAT_SIZE + 12,
           bottom: catBottom + CAT_SIZE * 0.45,
-          opacity: showing ? 1 : 0,
+          opacity: bubbleVisible ? 1 : 0,
           maxWidth: 260,
         }}
       >

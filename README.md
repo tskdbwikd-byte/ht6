@@ -39,6 +39,15 @@ IFACE=wlp194s0 ./start.sh        # interface for the traffic monitor (default: a
 `run_dns.sh` and `run_monitor.sh` still exist if you want to run either
 piece standalone in its own terminal, but `start.sh` is the normal path.
 
+Just want the dashboard, with no sudo prompt at all (e.g. to poke at the
+UI/API without touching network enforcement)?
+
+```bash
+./webapp.sh
+```
+
+It's a thin wrapper for `./start.sh --no-dns --no-monitor`.
+
 If this machine is sharing its internet connection as a Wi-Fi hotspot
 (NetworkManager "shared" mode), `start.sh` automatically detects it and
 wires its dnsmasq to forward through the resolver (writing
