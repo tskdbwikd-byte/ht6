@@ -9,11 +9,11 @@ export default function Home() {
     <main className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6">
       <RainHero closed={umbrellaClosed} />
       <div className="relative z-30 flex flex-col items-center gap-8 animate-fade-up">
-        <h1 className="pointer-events-none font-display text-5xl font-normal tracking-tight text-ink sm:text-6xl md:text-7xl">
+        <h1 className="pointer-events-none font-display text-6xl font-normal tracking-tight text-ink sm:text-7xl md:text-8xl">
           Parasol
         </h1>
         <Link
-          to="/dashboard"
+          to="/kids"
           className="cursor-none rounded-xl bg-brand px-8 py-3 text-sm font-semibold text-white transition hover:bg-brand-hover"
           onMouseEnter={() => setUmbrellaClosed(true)}
           onMouseLeave={() => setUmbrellaClosed(false)}

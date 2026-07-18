@@ -1,10 +1,12 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
 import DashboardLayout from './layouts/DashboardLayout'
+import KidsLayout from './layouts/KidsLayout'
 import MarketingLayout from './layouts/MarketingLayout'
 import Blocked from './pages/Blocked'
 import Blocklist from './pages/Blocklist'
 import Dashboard from './pages/Dashboard'
 import Home from './pages/Home'
+import KidsHome from './pages/KidsHome'
 import Protection from './pages/Protection'
 
 function App() {
@@ -12,6 +14,10 @@ function App() {
     <Routes>
       <Route element={<MarketingLayout />}>
         <Route path="/" element={<Home />} />
+      </Route>
+
+      <Route path="/kids" element={<KidsLayout />}>
+        <Route index element={<KidsHome />} />
       </Route>
 
       <Route path="/dashboard" element={<DashboardLayout />}>

@@ -81,11 +81,11 @@ export async function clearActivity() {
   return res.json()
 }
 
-export async function sendChatMessage(message, history = []) {
+export async function sendChatMessage(message, history = [], mode = 'adult') {
   const res = await fetch('/api/chat', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ message, history }),
+    body: JSON.stringify({ message, history, mode }),
   })
   if (!res.ok) {
     const body = await res.json().catch(() => ({}))

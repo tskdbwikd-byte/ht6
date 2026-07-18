@@ -13,7 +13,7 @@ import {
 const PIXEL = 3
 const DROP_W = 3
 const DROP_H = 7
-const UMBRELLA_P = 3
+const UMBRELLA_P = 4
 const UMBRELLA_RX = 9 * UMBRELLA_P
 const UMBRELLA_RY = 5 * UMBRELLA_P
 const UMBRELLA_DRY = 11 * UMBRELLA_P

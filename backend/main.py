@@ -214,16 +214,19 @@ class ChatMessage(BaseModel):
 class ChatRequest(BaseModel):
     message: str
     history: list[ChatMessage] = []
+    mode: str = "adult"
 
 
 @app.post("/api/chat")
 async def chat(request: ChatRequest):
+    mode = "kids" if request.mode == "kids" else "adult"
     messages = build_messages(
         message=request.message,
         history=[item.model_dump() for item in request.history],
         traffic_snapshot=STORE.snapshot(),
         blocklist_snapshot=BLOCKLIST.snapshot(),
         enabled_presets=[PRESETS[pid]["name"] for pid in BLOCKLIST.enabled_presets() if pid in PRESETS],
+        mode=mode,
     )
 
     try:

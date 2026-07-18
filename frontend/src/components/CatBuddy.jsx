@@ -8,7 +8,7 @@ const MESSAGES = [
 ]
 
 const SHOW_MS = 5500
-const HIDE_MS = 10000
+const HIDE_MS = 7000
 
 function PixelHeart({ className = '', style }) {
   const p = 2
@@ -172,11 +172,12 @@ export default function CatBuddy({ hovered }) {
   )
 }
 
-/** Axis-aligned cat hover region in viewport coordinates. */
+/** Hover zone includes a column above the cat so the umbrella can trigger hearts from overhead. */
 export function isOverCat(x, y, width, height) {
-  const left = width - CAT_RIGHT - CAT_SIZE * 0.88
-  const right = width - CAT_RIGHT - CAT_SIZE * 0.08
-  const top = height - GROUND_H - CAT_SIZE * 0.78
-  const bottom = height - GROUND_H + CAT_GROUND_OVERLAP + 4
+  const left = width - CAT_RIGHT - CAT_SIZE * 0.92
+  const right = width - CAT_RIGHT + 8
+  const catTop = height - GROUND_H - CAT_SIZE * 0.78
+  const top = catTop - 130
+  const bottom = height - GROUND_H + CAT_GROUND_OVERLAP + 8
   return x >= left && x <= right && y >= top && y <= bottom
 }

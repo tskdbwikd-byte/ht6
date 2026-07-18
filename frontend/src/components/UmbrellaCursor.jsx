@@ -12,7 +12,7 @@ const COLORS = {
   handle: '#4a5960',
 }
 
-const P = 3
+const P = 4
 
 function Pixel({ x, y, w = 1, h = 1, fill }) {
   return (
