@@ -3,35 +3,19 @@
 @tailwind utilities;
 
 :root {
-  color-scheme: light dark;
+  color-scheme: light;
 
-  --page-plane: #f9f9f7;
-  --surface-1: #fcfcfb;
-  --surface-2: #ffffff;
-  --ink-primary: #0b0b0b;
-  --ink-secondary: #52514e;
-  --ink-muted: #898781;
-  --gridline: #e1e0d9;
-  --border-hairline: rgba(11, 11, 11, 0.1);
+  --page-plane: #f7faf9;
+  --surface-1: #ffffff;
+  --surface-2: #f0f7f5;
+  --ink-primary: #1a2b28;
+  --ink-secondary: #4a5f5a;
+  --ink-muted: #7a8f89;
+  --gridline: #d8e5e1;
+  --border-hairline: rgba(26, 43, 40, 0.1);
   --series-dns: #2a78d6;
   --series-tls: #1baf7a;
-  --brand-soft: #fdf0e4;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --page-plane: #0d0d0d;
-    --surface-1: #17171a;
-    --surface-2: #1f1f22;
-    --ink-primary: #ffffff;
-    --ink-secondary: #c3c2b7;
-    --ink-muted: #898781;
-    --gridline: #2c2c2a;
-    --border-hairline: rgba(255, 255, 255, 0.1);
-    --series-dns: #3987e5;
-    --series-tls: #199e70;
-    --brand-soft: rgba(246, 130, 31, 0.16);
-  }
+  --brand-soft: #e8f4f1;
 }
 
 * {
@@ -47,7 +31,7 @@ body {
 body {
   background: var(--page-plane);
   color: var(--ink-primary);
-  font-family: Inter, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-family: 'Nunito Sans', system-ui, sans-serif;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -105,5 +89,9 @@ body {
   .icon-btn-danger:hover {
     background: color-mix(in srgb, #d03b3b 12%, transparent);
     color: #d03b3b;
+  }
+
+  .marketing-sky {
+    background: linear-gradient(180deg, #e8f2f6 0%, #f7faf9 42%, #f7faf9 100%);
   }
 }

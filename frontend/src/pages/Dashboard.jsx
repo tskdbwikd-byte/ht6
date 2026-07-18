@@ -1,9 +1,11 @@
+import { useOutletContext } from 'react-router-dom'
 import ActivityFeed from '../components/ActivityFeed'
 import StatCard from '../components/StatCard'
 import TopDomains from '../components/TopDomains'
 import TrafficChart from '../components/TrafficChart'
 
-function Dashboard({ data }) {
+function Dashboard() {
+  const { data } = useOutletContext()
   const { totals, timeseries, topDomains, recentEvents, uniqueDomains, lastSync, power } = data
 
   return (
@@ -11,7 +13,9 @@ function Dashboard({ data }) {
       <header className="flex flex-wrap items-center justify-between gap-4">
         <div>
           <p className="text-sm font-medium text-ink-secondary">Overview</p>
-          <h1 className="text-2xl font-semibold tracking-tight text-ink">Network activity</h1>
+          <h1 className="font-display text-2xl font-semibold tracking-tight text-ink">
+            Network activity
+          </h1>
         </div>
         <div className="flex items-center gap-3">
           <span className={`badge-status ${power ? 'badge-good' : 'badge-critical'}`}>

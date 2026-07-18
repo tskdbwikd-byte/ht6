@@ -1,8 +1,11 @@
 import { useState } from 'react'
+import { useOutletContext } from 'react-router-dom'
 import { PowerIcon, ShieldIcon } from '../components/icons'
 import { setPower } from '../lib/api'
 
-function Protection({ power }) {
+function Protection() {
+  const { data } = useOutletContext()
+  const power = data.power
   const [pending, setPending] = useState(false)
   const [error, setError] = useState(null)
 

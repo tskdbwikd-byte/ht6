@@ -15,9 +15,11 @@ export default {
         hairline: 'var(--border-hairline)',
         grid: 'var(--gridline)',
         brand: {
-          DEFAULT: '#F6821F',
-          hover: '#e0740f',
+          DEFAULT: '#4A9B8C',
+          hover: '#3D8A7C',
           soft: 'var(--brand-soft)',
+          mist: '#E8F4F1',
+          sky: '#B8DCE8',
         },
         dns: { DEFAULT: 'var(--series-dns)' },
         tls: { DEFAULT: 'var(--series-tls)' },
@@ -27,14 +29,25 @@ export default {
         critical: '#d03b3b',
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', '-apple-system', '"Segoe UI"', 'sans-serif'],
+        display: ['Outfit', 'system-ui', 'sans-serif'],
+        sans: ['Nunito Sans', 'system-ui', 'sans-serif'],
         mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
       },
       boxShadow: {
         card: '0 1px 2px rgba(11,11,11,0.04), 0 8px 24px -12px rgba(11,11,11,0.12)',
+        soft: '0 12px 40px -16px rgba(74, 155, 140, 0.25)',
       },
       borderRadius: {
         xl2: '1.25rem',
+      },
+      keyframes: {
+        'fade-up': {
+          '0%': { opacity: '0', transform: 'translateY(12px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
+      },
+      animation: {
+        'fade-up': 'fade-up 0.8s ease-out both',
       },
     },
   },
