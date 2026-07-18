@@ -1,0 +1,2075 @@
+{
+  "totals": {
+    "events": 2304,
+    "dns": 1634,
+    "tls": 667,
+    "blocked": 1
+  },
+  "recent_events": [
+    {
+      "type": "blocked",
+      "domain": "doubleclick.net",
+      "source": "127.0.0.1",
+      "destination": "blocked",
+      "timestamp": "2026-07-18T15:21:11.762818+00:00"
+    },
+    {
+      "type": "dns",
+      "domain": "rr3---sn-2ot0a5-5w.googlevideo.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:08:44.783191"
+    },
+    {
+      "type": "dns",
+      "domain": "rr3---sn-2ot0a5-5w.googlevideo.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:08:44.778505"
+    },
+    {
+      "type": "dns",
+      "domain": "rr4---sn-t0aekn7e.googlevideo.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:08:43.951404"
+    },
+    {
+      "type": "dns",
+      "domain": "rr4---sn-t0aekn7e.googlevideo.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:08:43.947142"
+    },
+    {
+      "type": "dns",
+      "domain": "www.gstatic.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:08:42.602518"
+    },
+    {
+      "type": "dns",
+      "domain": "csp.withgoogle.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:08:42.389771"
+    },
+    {
+      "type": "dns",
+      "domain": "www.googleadservices.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:08:42.057320"
+    },
+    {
+      "type": "tls",
+      "domain": "cdn2.smoot.apple.com",
+      "source": "10.42.0.63",
+      "destination": "17.253.24.199",
+      "timestamp": "2026-07-18T11:08:40.261511"
+    },
+    {
+      "type": "tls",
+      "domain": "cdn2.smoot.apple.com",
+      "source": "10.42.0.63",
+      "destination": "17.253.24.201",
+      "timestamp": "2026-07-18T11:08:36.847077"
+    },
+    {
+      "type": "tls",
+      "domain": "clients1.google.com",
+      "source": "10.42.0.63",
+      "destination": "192.178.192.100",
+      "timestamp": "2026-07-18T11:08:36.800899"
+    },
+    {
+      "type": "dns",
+      "domain": "cdn.smoot.g.aaplimg.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:08:36.757557"
+    },
+    {
+      "type": "dns",
+      "domain": "25-courier.push.apple.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:08:30.507050"
+    },
+    {
+      "type": "dns",
+      "domain": "25-courier.push.apple.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:08:30.500897"
+    },
+    {
+      "type": "dns",
+      "domain": "jnn-pa.googleapis.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:08:29.969030"
+    },
+    {
+      "type": "dns",
+      "domain": "jnn-pa.googleapis.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:08:29.964153"
+    },
+    {
+      "type": "dns",
+      "domain": "cp4.cloudflare.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:08:16.839982"
+    },
+    {
+      "type": "dns",
+      "domain": "ocsp2.g.aaplimg.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:08:00.864177"
+    },
+    {
+      "type": "dns",
+      "domain": "ocsp2.g.aaplimg.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:08:00.850530"
+    },
+    {
+      "type": "dns",
+      "domain": "e673.dsce9.akamaiedge.net",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:08:00.845731"
+    },
+    {
+      "type": "tls",
+      "domain": "i5.walmartimages.ca",
+      "source": "10.42.0.63",
+      "destination": "23.222.17.171",
+      "timestamp": "2026-07-18T11:07:59.453441"
+    },
+    {
+      "type": "dns",
+      "domain": "e167221.x.akamaiedge.net",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:07:59.408211"
+    },
+    {
+      "type": "dns",
+      "domain": "i5.walmartimages.ca",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:07:59.333518"
+    },
+    {
+      "type": "dns",
+      "domain": "i5.walmartimages.ca",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:07:59.328671"
+    },
+    {
+      "type": "tls",
+      "domain": "m.media-amazon.com",
+      "source": "10.42.0.63",
+      "destination": "3.161.212.213",
+      "timestamp": "2026-07-18T11:07:58.606272"
+    },
+    {
+      "type": "dns",
+      "domain": "m.media-amazon.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:07:58.455257"
+    },
+    {
+      "type": "dns",
+      "domain": "m.media-amazon.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:07:58.447796"
+    },
+    {
+      "type": "tls",
+      "domain": "cdn.ampproject.org",
+      "source": "10.42.0.63",
+      "destination": "192.178.192.132",
+      "timestamp": "2026-07-18T11:07:56.706689"
+    },
+    {
+      "type": "dns",
+      "domain": "cdn-content.ampproject.org",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:07:56.630883"
+    },
+    {
+      "type": "dns",
+      "domain": "cdn.ampproject.org",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:07:56.603125"
+    },
+    {
+      "type": "dns",
+      "domain": "cdn.ampproject.org",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:07:56.548407"
+    },
+    {
+      "type": "tls",
+      "domain": "encrypted-tbn2.gstatic.com",
+      "source": "10.42.0.63",
+      "destination": "142.250.139.100",
+      "timestamp": "2026-07-18T11:07:54.908265"
+    },
+    {
+      "type": "dns",
+      "domain": "encrypted-tbn2.gstatic.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:07:54.769080"
+    },
+    {
+      "type": "dns",
+      "domain": "encrypted-tbn2.gstatic.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:07:54.763164"
+    },
+    {
+      "type": "dns",
+      "domain": "encrypted-tbn3.gstatic.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:07:54.696713"
+    },
+    {
+      "type": "dns",
+      "domain": "encrypted-tbn1.gstatic.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:07:54.692864"
+    },
+    {
+      "type": "dns",
+      "domain": "encrypted-tbn1.gstatic.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:07:54.680202"
+    },
+    {
+      "type": "dns",
+      "domain": "encrypted-tbn3.gstatic.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:07:54.675302"
+    },
+    {
+      "type": "dns",
+      "domain": "play.google.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:07:54.222218"
+    },
+    {
+      "type": "dns",
+      "domain": "static.doubleclick.net",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:07:54.126671"
+    },
+    {
+      "type": "dns",
+      "domain": "googleads.g.doubleclick.net",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:07:54.123538"
+    },
+    {
+      "type": "dns",
+      "domain": "static.doubleclick.net",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:07:54.118670"
+    },
+    {
+      "type": "dns",
+      "domain": "i.ytimg.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:07:54.105783"
+    },
+    {
+      "type": "dns",
+      "domain": "i.ytimg.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:07:54.099666"
+    },
+    {
+      "type": "tls",
+      "domain": "lh3.googleusercontent.com",
+      "source": "10.42.0.63",
+      "destination": "142.250.137.132",
+      "timestamp": "2026-07-18T11:07:53.940532"
+    },
+    {
+      "type": "tls",
+      "domain": "encrypted-tbn0.gstatic.com",
+      "source": "10.42.0.63",
+      "destination": "192.178.192.102",
+      "timestamp": "2026-07-18T11:07:53.934901"
+    },
+    {
+      "type": "dns",
+      "domain": "googlehosted.l.googleusercontent.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:07:53.870704"
+    },
+    {
+      "type": "dns",
+      "domain": "encrypted-tbn0.gstatic.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:07:53.701938"
+    },
+    {
+      "type": "dns",
+      "domain": "encrypted-tbn0.gstatic.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:07:53.698537"
+    },
+    {
+      "type": "dns",
+      "domain": "lh3.googleusercontent.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:07:53.687485"
+    },
+    {
+      "type": "dns",
+      "domain": "lh3.googleusercontent.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:07:53.682933"
+    },
+    {
+      "type": "tls",
+      "domain": "mask.icloud.com",
+      "source": "10.42.0.63",
+      "destination": "172.224.186.20",
+      "timestamp": "2026-07-18T11:07:53.388678"
+    },
+    {
+      "type": "dns",
+      "domain": "ogads-pa.clients6.google.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:07:53.206159"
+    },
+    {
+      "type": "dns",
+      "domain": "ogads-pa.clients6.google.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:07:53.201577"
+    },
+    {
+      "type": "dns",
+      "domain": "www.googletagmanager.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:07:53.055370"
+    },
+    {
+      "type": "dns",
+      "domain": "www.googletagmanager.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:07:53.048359"
+    },
+    {
+      "type": "dns",
+      "domain": "www.youtube.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:07:52.964294"
+    },
+    {
+      "type": "dns",
+      "domain": "www.youtube.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:07:52.959044"
+    },
+    {
+      "type": "dns",
+      "domain": "mask-api.icloud.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:07:52.848160"
+    },
+    {
+      "type": "dns",
+      "domain": "mask-api.icloud.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:07:52.843720"
+    },
+    {
+      "type": "tls",
+      "domain": "events.insiad.com",
+      "source": "10.42.0.63",
+      "destination": "184.32.174.245",
+      "timestamp": "2026-07-18T11:07:52.491035"
+    },
+    {
+      "type": "dns",
+      "domain": "ax-0001.ax-msedge.net",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:07:52.406087"
+    },
+    {
+      "type": "dns",
+      "domain": "secure-us-east-1.imrworldwide.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:07:52.402045"
+    },
+    {
+      "type": "dns",
+      "domain": "secure-us-east-1.imrworldwide.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:07:52.389788"
+    },
+    {
+      "type": "dns",
+      "domain": "ax-0001.ax-msedge.net",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:07:52.384653"
+    },
+    {
+      "type": "tls",
+      "domain": "canada.michaels.com",
+      "source": "10.42.0.63",
+      "destination": "23.222.17.74",
+      "timestamp": "2026-07-18T11:07:51.344259"
+    },
+    {
+      "type": "dns",
+      "domain": "canada.michaels.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:07:51.255255"
+    },
+    {
+      "type": "dns",
+      "domain": "canada.michaels.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:07:51.248760"
+    },
+    {
+      "type": "dns",
+      "domain": "m-ca.cupshe.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:07:51.225409"
+    },
+    {
+      "type": "dns",
+      "domain": "m-ca.cupshe.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:07:51.219034"
+    },
+    {
+      "type": "tls",
+      "domain": "ca.cupshe.com",
+      "source": "10.42.0.63",
+      "destination": "13.225.196.118",
+      "timestamp": "2026-07-18T11:07:50.937028"
+    },
+    {
+      "type": "dns",
+      "domain": "dryxk6tm2sica.cloudfront.net",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:07:50.770822"
+    },
+    {
+      "type": "dns",
+      "domain": "dryxk6tm2sica.cloudfront.net",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:07:50.766008"
+    },
+    {
+      "type": "tls",
+      "domain": "cdn2.smoot.apple.com",
+      "source": "10.42.0.63",
+      "destination": "17.253.24.201",
+      "timestamp": "2026-07-18T11:07:47.178082"
+    },
+    {
+      "type": "tls",
+      "domain": "clients1.google.com",
+      "source": "10.42.0.63",
+      "destination": "192.178.192.100",
+      "timestamp": "2026-07-18T11:07:47.145285"
+    },
+    {
+      "type": "dns",
+      "domain": "clients.l.google.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:07:47.109156"
+    },
+    {
+      "type": "dns",
+      "domain": "cdn.smoot.g.aaplimg.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:07:47.093104"
+    },
+    {
+      "type": "dns",
+      "domain": "cdn.smoot.g.aaplimg.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:07:47.088327"
+    },
+    {
+      "type": "tls",
+      "domain": "mobilemaps-pa-gz.googleapis.com",
+      "source": "10.42.0.63",
+      "destination": "216.239.38.135",
+      "timestamp": "2026-07-18T11:07:46.813825"
+    },
+    {
+      "type": "dns",
+      "domain": "mobilemaps-pa-gz.googleapis.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:07:46.726781"
+    },
+    {
+      "type": "dns",
+      "domain": "mobilemaps-pa-gz.googleapis.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:07:46.721237"
+    },
+    {
+      "type": "tls",
+      "domain": "www.foxnews.com",
+      "source": "10.42.0.63",
+      "destination": "151.101.126.132",
+      "timestamp": "2026-07-18T11:07:46.514414"
+    },
+    {
+      "type": "tls",
+      "domain": "prod1.fes.kts.fox",
+      "source": "10.42.0.63",
+      "destination": "151.101.127.52",
+      "timestamp": "2026-07-18T11:07:46.500712"
+    },
+    {
+      "type": "tls",
+      "domain": "loki-ingest.fox.com",
+      "source": "10.42.0.63",
+      "destination": "151.101.127.52",
+      "timestamp": "2026-07-18T11:07:46.495413"
+    },
+    {
+      "type": "dns",
+      "domain": "j.sni.global.fastly.net",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:07:46.481070"
+    },
+    {
+      "type": "dns",
+      "domain": "q1.ca-est.gh-g.v1.akaquill.net",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:07:46.425588"
+    },
+    {
+      "type": "dns",
+      "domain": "q1.ca-est.gh-g.v1.akaquill.net",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:07:46.422494"
+    },
+    {
+      "type": "dns",
+      "domain": "ca-est.exp.fastly-masque.net",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:07:46.419356"
+    },
+    {
+      "type": "dns",
+      "domain": "www.foxnews.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:07:46.416271"
+    },
+    {
+      "type": "dns",
+      "domain": "www.foxnews.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:07:46.413154"
+    },
+    {
+      "type": "dns",
+      "domain": "ca-est.exp.fastly-masque.net",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:07:46.409998"
+    },
+    {
+      "type": "dns",
+      "domain": "cp4.cloudflare.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:07:46.406817"
+    },
+    {
+      "type": "dns",
+      "domain": "cp4.cloudflare.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:07:46.403668"
+    },
+    {
+      "type": "dns",
+      "domain": "fa-foxapi.map.fastly.net",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:07:46.400439"
+    },
+    {
+      "type": "dns",
+      "domain": "fa-foxapi.map.fastly.net",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:07:46.396893"
+    },
+    {
+      "type": "dns",
+      "domain": "t.sni.global.fastly.net",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:07:46.383194"
+    },
+    {
+      "type": "dns",
+      "domain": "t.sni.global.fastly.net",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:07:46.378597"
+    },
+    {
+      "type": "tls",
+      "domain": "mobile-api.yelp.com",
+      "source": "10.42.0.63",
+      "destination": "151.101.124.116",
+      "timestamp": "2026-07-18T11:07:46.088926"
+    },
+    {
+      "type": "dns",
+      "domain": "yelpcdn.map.fastly.net",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:07:46.003922"
+    },
+    {
+      "type": "tls",
+      "domain": "mobilemaps.googleapis.com",
+      "source": "10.42.0.63",
+      "destination": "216.239.38.135",
+      "timestamp": "2026-07-18T11:07:45.856583"
+    },
+    {
+      "type": "dns",
+      "domain": "mobilemaps.googleapis.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:07:45.814049"
+    },
+    {
+      "type": "dns",
+      "domain": "notify.bugsnag.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:07:45.811037"
+    },
+    {
+      "type": "dns",
+      "domain": "mobile-api.yelp.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:07:45.808015"
+    },
+    {
+      "type": "dns",
+      "domain": "experiment-allocation.yelp.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:07:45.804987"
+    },
+    {
+      "type": "dns",
+      "domain": "auto-api.yelp.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:07:45.801958"
+    },
+    {
+      "type": "dns",
+      "domain": "experiment-allocation.yelp.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:07:45.798861"
+    },
+    {
+      "type": "dns",
+      "domain": "auto-api.yelp.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:07:45.795662"
+    },
+    {
+      "type": "dns",
+      "domain": "bunsen.yelp.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:07:45.792472"
+    },
+    {
+      "type": "dns",
+      "domain": "mobile-api.yelp.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:07:45.789111"
+    },
+    {
+      "type": "dns",
+      "domain": "bunsen.yelp.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:07:45.785016"
+    },
+    {
+      "type": "dns",
+      "domain": "www.google.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:07:45.771698"
+    },
+    {
+      "type": "dns",
+      "domain": "mobilemaps.googleapis.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:07:45.765976"
+    },
+    {
+      "type": "tls",
+      "domain": "gs-loc.apple.com",
+      "source": "10.42.0.63",
+      "destination": "17.57.172.10",
+      "timestamp": "2026-07-18T11:07:27.113229"
+    },
+    {
+      "type": "tls",
+      "domain": "gs-loc.apple.com",
+      "source": "10.42.0.63",
+      "destination": "17.57.172.11",
+      "timestamp": "2026-07-18T11:07:26.804033"
+    },
+    {
+      "type": "dns",
+      "domain": "gs-loc.apple.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:07:26.534743"
+    },
+    {
+      "type": "dns",
+      "domain": "gs-loc.apple.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:07:26.528411"
+    },
+    {
+      "type": "tls",
+      "domain": "i.scdn.co",
+      "source": "10.42.0.63",
+      "destination": "23.223.17.208",
+      "timestamp": "2026-07-18T11:07:07.812944"
+    },
+    {
+      "type": "dns",
+      "domain": "a1520.dscc.akamai.net",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:07:07.757960"
+    },
+    {
+      "type": "dns",
+      "domain": "i.scdn.co",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:07:07.628745"
+    },
+    {
+      "type": "dns",
+      "domain": "i.scdn.co",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:07:07.619390"
+    },
+    {
+      "type": "dns",
+      "domain": "app-analytics-services.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:06:46.677548"
+    },
+    {
+      "type": "dns",
+      "domain": "app-measurement.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:06:46.672751"
+    },
+    {
+      "type": "dns",
+      "domain": "sg-vip001.taboola.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:06:45.589446"
+    },
+    {
+      "type": "dns",
+      "domain": "trc-events.taboola.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:06:45.366975"
+    },
+    {
+      "type": "dns",
+      "domain": "trc-events.taboola.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:06:45.362079"
+    },
+    {
+      "type": "dns",
+      "domain": "a-us-east.rfihub.com.akadns.net",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:06:44.056781"
+    },
+    {
+      "type": "dns",
+      "domain": "p.rfihub.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:06:43.976847"
+    },
+    {
+      "type": "dns",
+      "domain": "p.rfihub.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:06:43.974467"
+    },
+    {
+      "type": "tls",
+      "domain": "link.h-cdn.com",
+      "source": "10.42.0.63",
+      "destination": "44.195.137.128",
+      "timestamp": "2026-07-18T11:06:43.704080"
+    },
+    {
+      "type": "dns",
+      "domain": "live.rezync.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:06:43.629145"
+    },
+    {
+      "type": "dns",
+      "domain": "live.rezync.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:06:43.626902"
+    },
+    {
+      "type": "tls",
+      "domain": "perr.h-cdn.com",
+      "source": "10.42.0.63",
+      "destination": "34.196.68.227",
+      "timestamp": "2026-07-18T11:06:43.614262"
+    },
+    {
+      "type": "dns",
+      "domain": "link.h-cdn.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:06:43.561476"
+    },
+    {
+      "type": "dns",
+      "domain": "link.h-cdn.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:06:43.559057"
+    },
+    {
+      "type": "dns",
+      "domain": "perr.h-cdn.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:06:43.489474"
+    },
+    {
+      "type": "dns",
+      "domain": "perr.h-cdn.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:06:43.486606"
+    },
+    {
+      "type": "tls",
+      "domain": "ep2.adtrafficquality.google",
+      "source": "10.42.0.63",
+      "destination": "192.178.192.132",
+      "timestamp": "2026-07-18T11:06:43.401891"
+    },
+    {
+      "type": "tls",
+      "domain": "ade.clmbtech.com",
+      "source": "10.42.0.63",
+      "destination": "23.222.17.68",
+      "timestamp": "2026-07-18T11:06:43.291441"
+    },
+    {
+      "type": "dns",
+      "domain": "partners-1864332697.us-east-1.elb.amazonaws.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:06:43.238552"
+    },
+    {
+      "type": "dns",
+      "domain": "sync.crwdcntrl.net",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:06:43.234465"
+    },
+    {
+      "type": "dns",
+      "domain": "sync.crwdcntrl.net",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:06:43.231169"
+    },
+    {
+      "type": "dns",
+      "domain": "criteo-partners.tremorhub.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:06:43.180247"
+    },
+    {
+      "type": "dns",
+      "domain": "sync-t1.taboola.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:06:43.178536"
+    },
+    {
+      "type": "dns",
+      "domain": "simage2.pubmatic.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:06:43.176817"
+    },
+    {
+      "type": "dns",
+      "domain": "exchange.mediavine.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:06:43.175107"
+    },
+    {
+      "type": "dns",
+      "domain": "i.liadm.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:06:43.173425"
+    },
+    {
+      "type": "dns",
+      "domain": "r.casalemedia.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:06:43.171713"
+    },
+    {
+      "type": "dns",
+      "domain": "criteo-sync.teads.tv",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:06:43.170001"
+    },
+    {
+      "type": "dns",
+      "domain": "sync-t1.taboola.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:06:43.168220"
+    },
+    {
+      "type": "dns",
+      "domain": "trends.revcontent.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:06:43.166373"
+    },
+    {
+      "type": "dns",
+      "domain": "simage2.pubmatic.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:06:43.164539"
+    },
+    {
+      "type": "dns",
+      "domain": "i.liadm.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:06:43.162752"
+    },
+    {
+      "type": "dns",
+      "domain": "criteo-partners.tremorhub.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:06:43.161002"
+    },
+    {
+      "type": "dns",
+      "domain": "criteo-sync.teads.tv",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:06:43.159080"
+    },
+    {
+      "type": "dns",
+      "domain": "exchange.mediavine.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:06:43.157362"
+    },
+    {
+      "type": "dns",
+      "domain": "r.casalemedia.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:06:43.155664"
+    },
+    {
+      "type": "dns",
+      "domain": "simage4.pubmatic.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:06:43.153900"
+    },
+    {
+      "type": "dns",
+      "domain": "partner.mediawallahscript.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:06:43.151856"
+    },
+    {
+      "type": "dns",
+      "domain": "ade.clmbtech.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:06:43.148568"
+    },
+    {
+      "type": "dns",
+      "domain": "ade.clmbtech.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:06:43.146846"
+    },
+    {
+      "type": "dns",
+      "domain": "trends.revcontent.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:06:43.145053"
+    },
+    {
+      "type": "dns",
+      "domain": "simage4.pubmatic.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:06:43.136316"
+    },
+    {
+      "type": "dns",
+      "domain": "partner.mediawallahscript.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:06:43.132509"
+    },
+    {
+      "type": "tls",
+      "domain": "is1-ssl.mzstatic.com",
+      "source": "10.42.0.63",
+      "destination": "140.248.159.6",
+      "timestamp": "2026-07-18T11:06:43.017029"
+    },
+    {
+      "type": "tls",
+      "domain": "ocsp2.apple.com",
+      "source": "10.42.0.63",
+      "destination": "17.253.24.195",
+      "timestamp": "2026-07-18T11:06:42.931283"
+    },
+    {
+      "type": "dns",
+      "domain": "ocsp2.g.aaplimg.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:06:42.857621"
+    },
+    {
+      "type": "dns",
+      "domain": "ocsp2.g.aaplimg.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:06:42.853440"
+    },
+    {
+      "type": "dns",
+      "domain": "is1-ssl.mzstatic.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:06:42.747706"
+    },
+    {
+      "type": "dns",
+      "domain": "is1-ssl.mzstatic.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:06:42.745123"
+    },
+    {
+      "type": "tls",
+      "domain": "t.oa.opera.com",
+      "source": "10.42.0.63",
+      "destination": "82.145.213.8",
+      "timestamp": "2026-07-18T11:06:42.674956"
+    },
+    {
+      "type": "tls",
+      "domain": "entitlements.itunes.apple.com",
+      "source": "10.42.0.63",
+      "destination": "17.253.24.197",
+      "timestamp": "2026-07-18T11:06:42.610993"
+    },
+    {
+      "type": "dns",
+      "domain": "outspot2-ams.adx.opera.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:06:42.544739"
+    },
+    {
+      "type": "tls",
+      "domain": "pd.itunes.apple.com",
+      "source": "10.42.0.63",
+      "destination": "184.29.112.108",
+      "timestamp": "2026-07-18T11:06:42.504128"
+    },
+    {
+      "type": "dns",
+      "domain": "t.oa.opera.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:06:42.493988"
+    },
+    {
+      "type": "dns",
+      "domain": "t.oa.opera.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:06:42.479811"
+    },
+    {
+      "type": "dns",
+      "domain": "entitlements.itunes.apple.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:06:42.475038"
+    },
+    {
+      "type": "dns",
+      "domain": "entitlements.itunes.apple.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:06:42.472312"
+    },
+    {
+      "type": "dns",
+      "domain": "amp-api-search-edge.apps.apple.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:06:42.426170"
+    },
+    {
+      "type": "dns",
+      "domain": "amp-api-edge.apps.apple.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:06:42.424414"
+    },
+    {
+      "type": "dns",
+      "domain": "amp-api-edge.apps.apple.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:06:42.422672"
+    },
+    {
+      "type": "dns",
+      "domain": "amp-api-search-edge.apps.apple.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:06:42.420738"
+    },
+    {
+      "type": "dns",
+      "domain": "amp-api.apps.apple.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:06:42.418347"
+    },
+    {
+      "type": "dns",
+      "domain": "amp-api.apps.apple.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:06:42.412880"
+    },
+    {
+      "type": "tls",
+      "domain": "pd.itunes.apple.com",
+      "source": "10.42.0.63",
+      "destination": "184.29.112.108",
+      "timestamp": "2026-07-18T11:06:42.362046"
+    },
+    {
+      "type": "dns",
+      "domain": "e673.dsce9.akamaiedge.net",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:06:42.317988"
+    },
+    {
+      "type": "tls",
+      "domain": "ced-ns.sascdn.com",
+      "source": "10.42.0.63",
+      "destination": "23.223.17.170",
+      "timestamp": "2026-07-18T11:06:42.311856"
+    },
+    {
+      "type": "dns",
+      "domain": "pd.itunes.apple.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:06:42.292397"
+    },
+    {
+      "type": "dns",
+      "domain": "pd.itunes.apple.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:06:42.273011"
+    },
+    {
+      "type": "dns",
+      "domain": "check.analytics.rlcdn.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:06:42.237196"
+    },
+    {
+      "type": "dns",
+      "domain": "check.analytics.rlcdn.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:06:42.231639"
+    },
+    {
+      "type": "dns",
+      "domain": "ced-ns.sascdn.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:06:42.220948"
+    },
+    {
+      "type": "dns",
+      "domain": "ced-ns.sascdn.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:06:42.207482"
+    },
+    {
+      "type": "tls",
+      "domain": "id.rtb.mx",
+      "source": "10.42.0.63",
+      "destination": "152.233.22.101",
+      "timestamp": "2026-07-18T11:06:42.201639"
+    },
+    {
+      "type": "tls",
+      "domain": "t.adx.opera.com",
+      "source": "10.42.0.63",
+      "destination": "82.145.213.8",
+      "timestamp": "2026-07-18T11:06:42.081076"
+    },
+    {
+      "type": "dns",
+      "domain": "id.rtb.mx",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:06:42.061006"
+    },
+    {
+      "type": "dns",
+      "domain": "id.rtb.mx",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:06:42.054211"
+    },
+    {
+      "type": "dns",
+      "domain": "haproxy-high-qps.delivery-1.us-west1.eqtv.io",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:06:42.010030"
+    },
+    {
+      "type": "tls",
+      "domain": "cs.admanmedia.com",
+      "source": "10.42.0.63",
+      "destination": "80.77.87.163",
+      "timestamp": "2026-07-18T11:06:42.005274"
+    },
+    {
+      "type": "dns",
+      "domain": "csync.smartadserver.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:06:41.959664"
+    },
+    {
+      "type": "dns",
+      "domain": "beachfront-match.dotomi.com",
+      "source": "10.42.0.63",
+      "destination": "dns",
+      "timestamp": "2026-07-18T11:06:41.957767"
+    }
+  ],
+  "last_event": {
+    "type": "blocked",
+    "domain": "doubleclick.net",
+    "source": "127.0.0.1",
+    "destination": "blocked",
+    "timestamp": "2026-07-18T15:21:11.762818+00:00"
+  },
+  "minute_buckets": {
+    "2026-07-18T11:00": {
+      "events": 169,
+      "dns": 56,
+      "tls": 113
+    },
+    "2026-07-18T11:01": {
+      "events": 10,
+      "dns": 6,
+      "tls": 4
+    },
+    "2026-07-18T11:02": {
+      "events": 24,
+      "dns": 17,
+      "tls": 7
+    },
+    "2026-07-18T11:03": {
+      "events": 7,
+      "dns": 5,
+      "tls": 2
+    },
+    "2026-07-18T11:04": {
+      "events": 2,
+      "dns": 1,
+      "tls": 1
+    },
+    "2026-07-18T11:05": {
+      "events": 196,
+      "dns": 151,
+      "tls": 45
+    },
+    "2026-07-18T11:06": {
+      "events": 713,
+      "dns": 602,
+      "tls": 111
+    },
+    "2026-07-18T11:07": {
+      "events": 100,
+      "dns": 79,
+      "tls": 21
+    },
+    "2026-07-18T11:08": {
+      "events": 19,
+      "dns": 16,
+      "tls": 3
+    },
+    "2026-07-18T14:05": {
+      "events": 4,
+      "dns": 3,
+      "tls": 1
+    },
+    "2026-07-18T14:06": {
+      "events": 2,
+      "dns": 2,
+      "tls": 0
+    },
+    "2026-07-18T14:07": {
+      "events": 1,
+      "dns": 0,
+      "tls": 1
+    },
+    "2026-07-18T14:08": {
+      "events": 4,
+      "dns": 1,
+      "tls": 3
+    },
+    "2026-07-18T14:09": {
+      "events": 4,
+      "dns": 2,
+      "tls": 2
+    },
+    "2026-07-18T14:10": {
+      "events": 4,
+      "dns": 3,
+      "tls": 1
+    },
+    "2026-07-18T14:11": {
+      "events": 1,
+      "dns": 1,
+      "tls": 0
+    },
+    "2026-07-18T14:12": {
+      "events": 4,
+      "dns": 1,
+      "tls": 3
+    },
+    "2026-07-18T14:13": {
+      "events": 4,
+      "dns": 1,
+      "tls": 3
+    },
+    "2026-07-18T14:14": {
+      "events": 4,
+      "dns": 2,
+      "tls": 2
+    },
+    "2026-07-18T14:15": {
+      "events": 3,
+      "dns": 1,
+      "tls": 2
+    },
+    "2026-07-18T14:16": {
+      "events": 4,
+      "dns": 2,
+      "tls": 2
+    },
+    "2026-07-18T14:17": {
+      "events": 1,
+      "dns": 1,
+      "tls": 0
+    },
+    "2026-07-18T14:29": {
+      "events": 2,
+      "dns": 1,
+      "tls": 1
+    },
+    "2026-07-18T14:30": {
+      "events": 1,
+      "dns": 0,
+      "tls": 1
+    },
+    "2026-07-18T14:31": {
+      "events": 3,
+      "dns": 2,
+      "tls": 1
+    },
+    "2026-07-18T14:32": {
+      "events": 4,
+      "dns": 1,
+      "tls": 3
+    },
+    "2026-07-18T14:34": {
+      "events": 2,
+      "dns": 2,
+      "tls": 0
+    },
+    "2026-07-18T14:47": {
+      "events": 1,
+      "dns": 0,
+      "tls": 0,
+      "blocked": 1
+    },
+    "2026-07-18T14:48": {
+      "events": 1,
+      "dns": 0,
+      "tls": 0,
+      "blocked": 1
+    },
+    "2026-07-18T15:21": {
+      "events": 1,
+      "dns": 0,
+      "tls": 0,
+      "blocked": 1
+    }
+  },
+  "domain_counts": {
+    "play.googleapis.com": 38,
+    "graph.facebook.com": 33,
+    "api.lyft.bitdrift.io": 31,
+    "i.instagram.com": 21,
+    "youtubei.googleapis.com": 19,
+    "firebase-settings.crashlytics.com": 17,
+    "geller-pa.googleapis.com": 15,
+    "android.googleapis.com": 15,
+    "graph.instagram.com": 13,
+    "googleads.g.doubleclick.net": 13,
+    "www.gstatic.com": 13,
+    "people-pa.googleapis.com": 12,
+    "www.google.com": 12,
+    "test-gateway.instagram.com": 11,
+    "ondevicesafety-pa.googleapis.com": 11,
+    "graph-fallback.facebook.com": 10,
+    "i-fallback.instagram.com": 10,
+    "graph-fallback.instagram.com": 10,
+    "pagead2.googlesyndication.com": 10,
+    "prebid-server.rubiconproject.com": 10,
+    "instagram.fymq2-1.fna.fbcdn.net": 10,
+    "api.twitter.com": 10,
+    "firebaselogging.googleapis.com": 10,
+    "api.tricount.bunq.com": 10,
+    "api.sephora.com": 10,
+    "ping.chartbeat.net": 10,
+    "instagram.fyhu2-1.fna.fbcdn.net": 9,
+    "api16-access-wf-sg.pangle.io": 9,
+    "cloudconf-app-us.heytapmobile.com": 9,
+    "clients1.google.com": 9,
+    "cloudflare-dns.com": 8,
+    "capi.9c9media.com": 8,
+    "securepubads.g.doubleclick.net": 8,
+    "bam.nr-data.net": 8,
+    "b1.nel.goog": 8,
+    "www.youtube.com": 8,
+    "www.googleadservices.com": 8,
+    "github.com": 7,
+    "csi.gstatic.com": 7,
+    "ib.adnxs.com": 7,
+    "pubads.g.doubleclick.net": 7,
+    "cs.media.net": 7,
+    "cdn.ampproject.org": 7,
+    "api.spotify.com": 6,
+    "web.facebook.com": 6,
+    "connectivitycheck.gstatic.com": 6,
+    "www.cp24.com": 6,
+    "pb-ing-bellmedia.ccgateway.net": 6,
+    "clientservices.googleapis.com": 6,
+    "sync.richaudience.com": 6,
+    "bh.contextweb.com": 6,
+    "jssdks.mparticle.com": 6,
+    "5ae224d2112541429ce147aa7b98107f.dxf.wowscale.com": 6,
+    "logx.optimizely.com": 6,
+    "prebid-match.dotomi.com": 6,
+    "hbx.media.net": 6,
+    "ep2.adtrafficquality.google": 6,
+    "www.foxnews.com": 6,
+    "cdn2.smoot.apple.com": 6,
+    "googleapis.com": 5,
+    "www.linkedin.com": 5,
+    "a17586580222.cdn.optimizely.com": 5,
+    "identity.mparticle.com": 5,
+    "mab.chartbeat.com": 5,
+    "beacon.tru.am": 5,
+    "fastlane.rubiconproject.com": 5,
+    "grid-bidder.criteo.com": 5,
+    "c.go-mpulse.net": 5,
+    "rtb.gumgum.com": 5,
+    "mps.mia.springserve.com": 5,
+    "ads.yieldmo.com": 5,
+    "beacons.gcp.gvt2.com": 5,
+    "firebaseremoteconfig.googleapis.com": 5,
+    "translate-pa.googleapis.com": 5,
+    "notifications-pa.googleapis.com": 5,
+    "assets.adobedtm.com": 5,
+    "dpm.demdex.net": 5,
+    "sdk.out.usbla.net": 5,
+    "android.chat.openai.com": 5,
+    "w.usabilla.com": 5,
+    "captive.apple.com": 5,
+    "a1164d2a32b54fc385df84205a908341.dxf.wowscale.com": 5,
+    "fonts.googleapis.com": 5,
+    "rtb.openx.net": 5,
+    "ad.360yield.com": 5,
+    "i.liadm.com": 5,
+    "mask.icloud.com": 5,
+    "www.googletagmanager.com": 5,
+    "cdn.cloudflare.net": 4,
+    "cloudflare.com": 4,
+    "safebrowsing.googleapis.com": 4,
+    "fonts.gstatic.com": 4,
+    "o1069899.ingest.sentry.io": 4,
+    "firefox.settings.services.mozilla.com": 4,
+    "www.google.us": 4,
+    "api.permutive.com": 4,
+    "sb.scorecardresearch.com": 4,
+    "www.google.ca": 4,
+    "ads.stickyadstv.com": 4,
+    "eb2.3lift.com": 4,
+    "match.adsrvr.org": 4,
+    "gum.criteo.com": 4,
+    "stream-ent4.video.9c9media.com": 4,
+    "prebid-a.rubiconproject.com": 4,
+    "gcdn.2mdn.net": 4,
+    "googleads4.g.doubleclick.net": 4,
+    "ade.googlesyndication.com": 4,
+    "end.scorecardresearch.com": 4,
+    "ep1.adtrafficquality.google": 4,
+    "ublockorigin.github.io": 4,
+    "androidplatformbackuprestore-pa.googleapis.com": 4,
+    "subscription-plan-data.s3.amazonaws.com": 4,
+    "edge-mqtt.facebook.com": 4,
+    "workspacevideo-pa.googleapis.com": 4,
+    "discord.com": 4,
+    "oneclient.sfx.ms": 4,
+    "assets.twitch.tv": 4,
+    "cdn.confiant-integrations.net": 4,
+    "api.pinterest.com": 4,
+    "icons.pawwalls.com": 4,
+    "firebaselogging-pa.googleapis.com": 4,
+    "sequoia.cdn-apple.com": 4,
+    "api-developer.sephora.com": 4,
+    "06d6c2ee-fb3f-4cba-bc07-a20f19a46cd3-e309da9b9aaf.cdn.forter.com": 4,
+    "api.smart-id.ca": 4,
+    "cm.g.doubleclick.net": 4,
+    "cms.quantserve.com": 4,
+    "us-u.openx.net": 4,
+    "match.prod.bidr.io": 4,
+    "ocsp2.apple.com": 4,
+    "p.rfihub.com": 4,
+    "loki-ingest.fox.com": 4,
+    "prod1.fes.kts.fox": 4,
+    "ca.cupshe.com": 4,
+    "mask-api.icloud.com": 4,
+    "ogads-pa.clients6.google.com": 4,
+    "i.ytimg.com": 4,
+    "reddit.com": 3,
+    "ipv4-c001.netflix.com": 3,
+    "m.youtube.com": 3,
+    "play-fe.googleapis.com": 3,
+    "conn-service-us-05.allawnos.com": 3,
+    "merino.services.mozilla.com": 3,
+    "ad.doubleclick.net": 3,
+    "c1.adform.net": 3,
+    "elb.the-ozone-project.com": 3,
+    "metrics.adtrackerhub.io": 3,
+    "collector.adtrackerhub.io": 3,
+    "pixel.trackingnet.co": 3,
+    "beacon.trackingnet.co": 3,
+    "ublockorigin.pages.dev": 3,
+    "pool.ntp.org": 3,
+    "mmsbackup.pa.googleapis.com": 3,
+    "cloud.aditude.io": 3,
+    "aditude.prebid-server.com": 3,
+    "remote-data.urbanairship.com": 3,
+    "cdn-prod.securiti.ai": 3,
+    "marketingplatform.google.com": 3,
+    "dl.google.com": 3,
+    "cn-geo1.uber.com": 3,
+    "android.bugly.qq.com": 3,
+    "crashlyticsreports-pa.googleapis.com": 3,
+    "trk.pinterest.com": 3,
+    "s.w-x.co": 3,
+    "cdn.taboola.com": 3,
+    "www.recaptcha.net": 3,
+    "api.github.com": 3,
+    "akamai-gw.dbaas.aircanada.com": 3,
+    "matrix-client.matrix.org": 3,
+    "photos.espi.dev": 3,
+    "cdn2.inner-active.mobi": 3,
+    "api16-access-ttp.tiktokpangle.us": 3,
+    "gsp85-ssl.ls.apple.com": 3,
+    "apple-native-relay.apple.com": 3,
+    "wps.apple.com": 3,
+    "mesu.apple.com": 3,
+    "ssl.gstatic.com": 3,
+    "token.safebrowsing.apple": 3,
+    "lcdn-locator.apple.com": 3,
+    "api-safari-ause2c.smoot.apple.com": 3,
+    "sdk.iad-01.braze.com": 3,
+    "rest.iad-01.braze.com": 3,
+    "sdk-configuration.gimbal.com": 3,
+    "e309da9b9aaf.cdn4.forter.com": 3,
+    "sephora.cnstrc.com": 3,
+    "sephoraretail.md-apis.medallia.com": 3,
+    "mobile-api.rokt.com": 3,
+    "aps.wowscale.com": 3,
+    "api3.branch.io": 3,
+    "sephora.sc.omtrdc.net": 3,
+    "cdn.branch.io": 3,
+    "resources.digital-cloud.medallia.com": 3,
+    "config.aps.amazon-adsystem.com": 3,
+    "lib.jasperplayer.com": 3,
+    "pb-rtd-bellmedia.ccgateway.net": 3,
+    "config.jasperplayer.com": 3,
+    "network.bazaarvoice.com": 3,
+    "m.api.forter.com": 3,
+    "ssl.p.jwpcdn.com": 3,
+    "entitlements.jwplayer.com": 3,
+    "scontent-yyz1-1.xx.fbcdn.net": 3,
+    "images2.9c9media.com": 3,
+    "imasdk.googleapis.com": 3,
+    "license.9c9media.ca": 3,
+    "pancake.apple.com": 3,
+    "itunes.apple.com": 3,
+    "prd.jwpltx.com": 3,
+    "gba.lotoquebec.com": 3,
+    "author-service-images-prod-us-east-1.publishing.aws.arc.pub": 3,
+    "forms.office.com": 3,
+    "s.yimg.com": 3,
+    "www.knotch-cdn.com": 3,
+    "player.h-cdn.com": 3,
+    "prod-foxkit.kts.fox": 3,
+    "prod.idgraph.dt.fox": 3,
+    "prod.pyxis.atp.fox": 3,
+    "js.appboycdn.com": 3,
+    "pix.pub": 3,
+    "cdn.ketchjs.com": 3,
+    "smetrics.foxnews.com": 3,
+    "configs.knotch.com": 3,
+    "cdn.binsiad.com": 3,
+    "sdk.iad-05.braze.com": 3,
+    "use.fontawesome.com": 3,
+    "app-measurement.com": 3,
+    "app-analytics-services.com": 3,
+    "play.google.com": 3,
+    "csp.withgoogle.com": 3,
+    "www.reddit.com": 2,
+    "qcc.qualcomm.com": 2,
+    "path3.xtracloud.net": 2,
+    "android.apis.google.com": 2,
+    "content-signature-2.cdn.mozilla.net": 2,
+    "assets.mozilla.net": 2,
+    "gstatic.com": 2,
+    "yt3.ggpht.com": 2,
+    "aeae0b8f2eb6d97211dd80daaec76cf5.safeframe.googlesyndication.com": 2,
+    "bellmedia-d.openx.net": 2,
+    "um.simpli.fi": 2,
+    "openx2-match.dotomi.com": 2,
+    "i.w55c.net": 2,
+    "eu-u.openx.net": 2,
+    "image2.pubmatic.com": 2,
+    "px.ads.linkedin.com": 2,
+    "rtb-csync.smartadserver.com": 2,
+    "www.googletagservices.com": 2,
+    "r4---sn-t0aekn7e.c.2mdn.net": 2,
+    "spot-pa.googleapis.com": 2,
+    "gethtml.pelmorex.com": 2,
+    "sau-server-us.allawnos.com": 2,
+    "federatedcompute-pa.googleapis.com": 2,
+    "lamssettings-pa.googleapis.com": 2,
+    "locationhistory-pa.googleapis.com": 2,
+    "m.stripe.com": 2,
+    "api.usercentrics.eu": 2,
+    "aggregator.service.usercentrics.eu": 2,
+    "footprints-pa.googleapis.com": 2,
+    "cdn.discordapp.com": 2,
+    "gateway.discord.gg": 2,
+    "dns.wechat.com": 2,
+    "quake-pa.googleapis.com": 2,
+    "meta.wikimedia.org": 2,
+    "cache.prebid-server.com": 2,
+    "kw3qbu.cdn-settings.appsflyersdk.com": 2,
+    "soundcloud.com": 2,
+    "api-sdk.datadome.co": 2,
+    "gui-server-us.allawnos.com": 2,
+    "api-mobile.soundcloud.com": 2,
+    "teams.events.data.microsoft.com": 2,
+    "in.appcenter.ms": 2,
+    "vulcan3.branch.io": 2,
+    "googlehomefoyer-pa.googleapis.com": 2,
+    "cdn.quantummetric.com": 2,
+    "www.united.com": 2,
+    "kvinit-prod.api.kochava.com": 2,
+    "mobileapi.united.com": 2,
+    "device-api.urbanairship.com": 2,
+    "trowel.twitch.tv": 2,
+    "app.securiti.ai": 2,
+    "firebaseremoteconfigrealtime.googleapis.com": 2,
+    "mobile-data.onetrust.io": 2,
+    "www.chess.com": 2,
+    "rr1---sn-tt1e7nlz.gvt1.com": 2,
+    "rr5---sn-tt1e7nl6.gvt1.com": 2,
+    "rr5---sn-ajab55-5a.gvt1.com": 2,
+    "firebaseinstallations.googleapis.com": 2,
+    "col.eum-appdynamics.com": 2,
+    "www.tntsupermarket.com": 2,
+    "i.pinimg.com": 2,
+    "api.onesignal.com": 2,
+    "weather.com": 2,
+    "v1.pinimg.com": 2,
+    "www.airbnb.com": 2,
+    "cn-cloudflare.pidetupop.com": 2,
+    "cafe.github.com": 2,
+    "app-api.pixiv.net": 2,
+    "cognito-idp.us-east-2.amazonaws.com": 2,
+    "cognito-identity.us-east-2.amazonaws.com": 2,
+    "slack.com": 2,
+    "a.locuslabs.com": 2,
+    "androidpay-users-pa.googleapis.com": 2,
+    "api.lab.amplitude.com": 2,
+    "flag.lab.amplitude.com": 2,
+    "matrix.org": 2,
+    "vector.im": 2,
+    "ms.applovin.com": 2,
+    "snowplow-tricount.data.bunq.com": 2,
+    "meetings.googleapis.com": 2,
+    "app.opstatics.com": 2,
+    "memberapi-na.oneplus.com": 2,
+    "taskassist-pa.googleapis.com": 2,
+    "d.applovin.com": 2,
+    "rt.applovin.com": 2,
+    "sts.applovin.com": 2,
+    "config.inmobi.com": 2,
+    "unif-id.ssp.inmobi.com": 2,
+    "telemetry.sdk.inmobi.com": 2,
+    "cdn-adn-https.mtgglobals.com": 2,
+    "sf16-static.i18n-pglstatp.com": 2,
+    "api16-dual-event-sg2.pangle.io": 2,
+    "int.dewrain.life": 2,
+    "api.revenuecat.com": 2,
+    "fp.ca.rogers.rcs.telephony.goog": 2,
+    "_dns.resolver.arpa": 2,
+    "gateway.icloud.com": 2,
+    "12-courier.push.apple.com": 2,
+    "instagram.fymq3-1.fna.fbcdn.net": 2,
+    "api.facebook.com": 2,
+    "star.fallback.c10r.facebook.com": 2,
+    "E11D0C18-EF39-4227-B7ED-ECD4838AED2F-netseer-ipaddr-assoc.xz.fbcdn.net": 2,
+    "E11D0C18-EF39-4227-B7ED-ECD4838AED2F-netseer-ipaddr-assoc.xy.fbcdn.net": 2,
+    "www.facebook.com": 2,
+    "c2f144b2-42eb-4b05-8ab0-22f0395faa15-netseer-ipaddr-assoc.xz.fbcdn.net": 2,
+    "bag.itunes.apple.com": 2,
+    "p101-quota.icloud.com": 2,
+    "ep2.facebook.com": 2,
+    "tru.am": 2,
+    "micro.rubiconproject.com": 2,
+    "static.chartbeat.com": 2,
+    "c.amazon-adsystem.com": 2,
+    "bellmediainc-bnn-bloomberg-prod.web.arc-cdn.net": 2,
+    "d6vbkv8rsyksv.cloudfront.net": 2,
+    "www.queryly.com": 2,
+    "static.themebuilder.aws.arc.pub": 2,
+    "cdn.optimizely.com": 2,
+    "cdn.permutive.com": 2,
+    "jssdkcdns.mparticle.com": 2,
+    "s.ntv.io": 2,
+    "cdn.jsdelivr.net": 2,
+    "pixel.tapad.com": 2,
+    "jadserve.postrelease.com": 2,
+    "s.go-mpulse.net": 2,
+    "cdn-magiclinks.trackonomics.net": 2,
+    "ocsp.r2m01.amazontrust.com": 2,
+    "ups.analytics.yahoo.com": 2,
+    "ipv4.icanhazip.com": 2,
+    "ssum-sec.casalemedia.com": 2,
+    "c3fc3c54cda66b06f9b500bf9bb4e362.safeframe.googlesyndication.com": 2,
+    "ads.pubmatic.com": 2,
+    "ut.pubmatic.com": 2,
+    "sync.1rx.io": 2,
+    "sync.colossusssp.com": 2,
+    "js-agent.newrelic.com": 2,
+    "mia-placement-server.rubiconproject.com": 2,
+    "sync.springserve.com": 2,
+    "7354de66921e5d0129f3f6b7df5828e0.safeframe.googlesyndication.com": 2,
+    "tv.springserve.com": 2,
+    "pixel.rubiconproject.com": 2,
+    "sync.bfmio.com": 2,
+    "image8.pubmatic.com": 2,
+    "sync.go.sonobi.com": 2,
+    "ssbsync.smartadserver.com": 2,
+    "sync.sxp.smartclip.net": 2,
+    "pbs.publishers.tremorhub.com": 2,
+    "ih.adscale.de": 2,
+    "sync.teads.tv": 2,
+    "ssum.casalemedia.com": 2,
+    "y.one.impact-ad.jp": 2,
+    "ad.as.amanad.adtdp.com": 2,
+    "cdn.jwplayer.com": 2,
+    "bid.g.doubleclick.net": 2,
+    "tpsc-video-ue.doubleverify.com": 2,
+    "vtrk.dv.tech": 2,
+    "cdn.doubleverify.com": 2,
+    "r2---sn-ojtt15-54.c.2mdn.net": 2,
+    "a57.foxnews.com": 2,
+    "static.foxnews.com": 2,
+    "as-sec.casalemedia.com": 2,
+    "foxnews-d.openx.net": 2,
+    "hbopenbid.pubmatic.com": 2,
+    "c2shb.ssp.yahoo.com": 2,
+    "client.aps.amazon-adsystem.com": 2,
+    "bidder.criteo.com": 2,
+    "sofia.trustx.org": 2,
+    "aax.amazon-adsystem.com": 2,
+    "pool.sofia.iponweb.net": 2,
+    "secure-us.imrworldwide.com": 2,
+    "global.ketchcdn.com": 2,
+    "static.criteo.net": 2,
+    "cdn-gl.imrworldwide.com": 2,
+    "bat.bing.com": 2,
+    "static.trueanthem.com": 2,
+    "mv.outbrain.com": 2,
+    "libs.outbrain.com": 2,
+    "widget-pixels.outbrain.com": 2,
+    "a5728063363743744.cdn.optimizely.com": 2,
+    "j.sni.global.fastly.net": 2,
+    "clients.l.google.com": 2,
+    "netflix.com": 1,
+    "time.izatcloud.net": 1,
+    "geomobileservices-pa.googleapis.com": 1,
+    "example.org": 1,
+    "detectportal.firefox.com": 1,
+    "ipv4only.arpa": 1,
+    "conn-service-us-04.allawnos.com": 1,
+    "ohttp-relay-safebrowsing-android.google.fastly-edge.com": 1,
+    "www.googleapis.com": 1,
+    "0.pool.ntp.org": 1,
+    "o4507234886615040.ingest.us.sentry.io": 1,
+    "doubleclick.net": 2,
+    "epdg.epc.mnc490.mcc302.pub.3gppnetwork.org": 1,
+    "assetsconfigcdn.org": 1,
+    "android-context-data.googleapis.com": 1,
+    "passport.twitch.tv": 1,
+    "storage.googleapis.com": 1,
+    "no-op-domain": 1,
+    "rr2---sn-ajab55-5a.gvt1.com": 1,
+    "rr1---sn-ab5szn67.gvt1.com": 1,
+    "rr5---sn-ajab55-5o.gvt1.com": 1,
+    "rr3---sn-ab5l6nkd.gvt1.com": 1,
+    "rr2---sn-ab5l6ny7.gvt1.com": 1,
+    "rr1---sn-ab5sznzr.gvt1.com": 1,
+    "rr2---sn-ab5sznzs.gvt1.com": 1,
+    "rr1---sn-ajab55-5v.gvt1.com": 1,
+    "rr3---sn-tt1e7nlz.gvt1.com": 1,
+    "rr2---sn-ab5l6nkd.gvt1.com": 1,
+    "rr4---sn-ab5sznld.gvt1.com": 1,
+    "rr5---sn-2oab55-5i.gvt1.com": 1,
+    "rr3---sn-ab5l6nrd.gvt1.com": 1,
+    "rr1---sn-ab5l6nk6.gvt1.com": 1,
+    "rr4---sn-ab5l6nkd.gvt1.com": 1,
+    "rr1---sn-ab5l6nr6.gvt1.com": 1,
+    "rr5---sn-ab5szn6e.gvt1.com": 1,
+    "rr4---sn-ab5l6ny7.gvt1.com": 1,
+    "rr2---sn-ajab55-5h.gvt1.com": 1,
+    "rr1---sn-ab5l6ny7.gvt1.com": 1,
+    "rr4---sn-ab5l6nk6.gvt1.com": 1,
+    "events-api.soundcloud.com": 1,
+    "prodregistryv2.org": 1,
+    "oauth.secure.pixiv.net": 1,
+    "ab.chatgpt.com": 1,
+    "configure-tcp-android.mtgglobals.com": 1,
+    "_sips._tcp.fp.ca.rogers.rcs.telephony.goog": 1,
+    "sglong.wechat.com": 1,
+    "sgshort.wechat.com": 1,
+    "paydns.wechat.com": 1,
+    "sgminorshort.wechat.com": 1,
+    "apple-native-relay.mask.apple-dns.net": 1,
+    "captive.g.aaplimg.com": 1,
+    "us-north-courier-4.push-apple.com.akadns.net": 1,
+    "gateway.facebook.com": 1,
+    "gateway.instagram.com": 1,
+    "z-p42-chat-e2ee-ig.facebook.com": 1,
+    "star-mini.fallback.c10r.facebook.com": 1,
+    "smoot-api-safari-ause2c.v.aaplimg.com": 1,
+    "world-gen.g.aaplimg.com": 1,
+    "star.c10r.facebook.com": 1,
+    "ats.wowscale.com": 1,
+    "k8s-dwnnginx-dwnnginx-ed688409fd-c27e4dbd963cf1f3.elb.us-east-2.amazonaws.com": 1,
+    "e3568.x.akamaiedge.net": 1,
+    "widgets.sports.bellmedia.ca": 1,
+    "na.bellmedia.map.fastly.net": 1,
+    "r2.sn-ojtt15-54.c.2mdn.net": 1,
+    "tps-ue1.doubleverify.com": 1,
+    "fastly-tls12-bam.nr-data.net": 1,
+    "images.outbrain.com": 1,
+    "widgets.outbrain.com": 1,
+    "ib.anycast.adnxs.com": 1,
+    "tagged-by.rubiconproject.net.akadns.net": 1,
+    "d3f7zc5bbfci5.cloudfront.net": 1,
+    "dcs-public-edge-va6-158015560.us-east-1.elb.amazonaws.com": 1,
+    "census.us-east-1.nielsencollections.com": 1,
+    "contributor.google.com": 1,
+    "tls13.taboola.map.fastly.net": 1,
+    "foxnews.tt.omtrdc.net": 1,
+    "widget-cdn.rpxnow.com": 1,
+    "log.outbrain.com": 1,
+    "foxnews.demdex.net": 1,
+    "cdn.livefyre.com": 1,
+    "metrics.foxnews.com": 1,
+    "api.strike.fox": 1,
+    "dualstack.f6.shared.global.fastly.net": 1,
+    "assets.tapad.com": 1,
+    "b.scorecardresearch.com": 1,
+    "cdn.tt.omtrdc.net": 1,
+    "hpr.outbrain.com": 1,
+    "z.moatads.com": 1,
+    "mbz100.ketch.map.fastly.net": 1,
+    "www3.l.google.com": 1,
+    "outbrain.map.fastly.net": 1
+  },
+  "power": true
+}

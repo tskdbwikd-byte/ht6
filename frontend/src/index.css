@@ -3,26 +3,107 @@
 @tailwind utilities;
 
 :root {
-  color-scheme: dark;
-  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  background-color: #020617;
-  color: #f8fafc;
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  color-scheme: light dark;
+
+  --page-plane: #f9f9f7;
+  --surface-1: #fcfcfb;
+  --surface-2: #ffffff;
+  --ink-primary: #0b0b0b;
+  --ink-secondary: #52514e;
+  --ink-muted: #898781;
+  --gridline: #e1e0d9;
+  --border-hairline: rgba(11, 11, 11, 0.1);
+  --series-dns: #2a78d6;
+  --series-tls: #1baf7a;
+  --brand-soft: #fdf0e4;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --page-plane: #0d0d0d;
+    --surface-1: #17171a;
+    --surface-2: #1f1f22;
+    --ink-primary: #ffffff;
+    --ink-secondary: #c3c2b7;
+    --ink-muted: #898781;
+    --gridline: #2c2c2a;
+    --border-hairline: rgba(255, 255, 255, 0.1);
+    --series-dns: #3987e5;
+    --series-tls: #199e70;
+    --brand-soft: rgba(246, 130, 31, 0.16);
+  }
 }
 
 * {
   box-sizing: border-box;
 }
 
+html,
 body {
   margin: 0;
   min-height: 100vh;
-  background: linear-gradient(135deg, #fff8c6 0%, #ffe7f3 35%, #dff7ff 100%);
+}
+
+body {
+  background: var(--page-plane);
+  color: var(--ink-primary);
+  font-family: Inter, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 #root {
   min-height: 100vh;
+}
+
+::selection {
+  background: var(--brand-soft);
+}
+
+@layer components {
+  .badge-dns {
+    background: color-mix(in srgb, var(--series-dns) 12%, transparent);
+    color: var(--series-dns);
+  }
+  .badge-tls {
+    background: color-mix(in srgb, var(--series-tls) 12%, transparent);
+    color: var(--series-tls);
+  }
+  .badge-blocked {
+    background: color-mix(in srgb, #d03b3b 12%, transparent);
+    color: #d03b3b;
+  }
+  .badge-status {
+    @apply inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold;
+  }
+  .badge-good {
+    background: color-mix(in srgb, #0ca30c 14%, transparent);
+    color: #0ca30c;
+  }
+  .badge-critical {
+    background: color-mix(in srgb, #d03b3b 14%, transparent);
+    color: #d03b3b;
+  }
+  .power-ring-good {
+    border-color: color-mix(in srgb, #0ca30c 40%, transparent);
+    background: color-mix(in srgb, #0ca30c 10%, transparent);
+    color: #0ca30c;
+    box-shadow: 0 0 0 10px color-mix(in srgb, #0ca30c 6%, transparent);
+  }
+  .power-ring-critical {
+    border-color: color-mix(in srgb, #d03b3b 40%, transparent);
+    background: color-mix(in srgb, #d03b3b 10%, transparent);
+    color: #d03b3b;
+    box-shadow: 0 0 0 10px color-mix(in srgb, #d03b3b 6%, transparent);
+  }
+  .alert-critical {
+    background: color-mix(in srgb, #d03b3b 12%, transparent);
+    color: #d03b3b;
+  }
+  .icon-btn-danger:hover {
+    background: color-mix(in srgb, #d03b3b 12%, transparent);
+    color: #d03b3b;
+  }
 }
