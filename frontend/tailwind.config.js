@@ -45,9 +45,15 @@ export default {
           '0%': { opacity: '0', transform: 'translateY(12px)' },
           '100%': { opacity: '1', transform: 'translateY(0)' },
         },
+        'cat-heart': {
+          '0%': { opacity: '0', transform: 'translateY(6px) scale(0.85)' },
+          '25%': { opacity: '1', transform: 'translateY(0) scale(1)' },
+          '100%': { opacity: '0', transform: 'translateY(-14px) scale(1)' },
+        },
       },
       animation: {
         'fade-up': 'fade-up 0.8s ease-out both',
+        'cat-heart': 'cat-heart 1.4s ease-out infinite',
       },
     },
   },
