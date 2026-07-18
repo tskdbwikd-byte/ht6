@@ -118,3 +118,26 @@ export function GlobeIcon(props) {
     </svg>
   )
 }
+
+export function PawIcon(props) {
+  return (
+    <svg viewBox="0 0 24 24" {...base} {...props}>
+      <circle cx="12" cy="15" r="4.3" />
+      <circle cx="6" cy="8.5" r="2" />
+      <circle cx="18" cy="8.5" r="2" />
+      <circle cx="9.5" cy="5.5" r="1.9" />
+      <circle cx="14.5" cy="5.5" r="1.9" />
+    </svg>
+  )
+}
+
+export function LogIcon(props) {
+  return (
+    <svg viewBox="0 0 24 24" {...base} {...props}>
+      <rect x="4" y="3" width="16" height="18" rx="2" />
+      <path d="M8 8h8" />
+      <path d="M8 12h8" />
+      <path d="M8 16h5" />
+    </svg>
+  )
+}

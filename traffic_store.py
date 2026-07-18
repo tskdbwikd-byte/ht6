@@ -6,7 +6,7 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Iterator
 
-TIME_BUCKETS_KEPT = 180  # seconds of 1s-resolution history to keep for the live chart
+TIME_BUCKETS_KEPT = 60  # seconds of 1s-resolution history to keep for the live chart
 DOMAIN_COUNTS_CAP = 500
 TOP_DOMAINS_RETURNED = 20
 KNOWN_TOTAL_KEYS = ("events", "dns", "tls")
@@ -14,6 +14,7 @@ BLOCKED_EVENTS_CAP = 500
 BLOCKED_EVENTS_RETURNED = 100
 BLOCKED_DOMAINS_CAP = 500
 TOP_BLOCKED_DOMAINS_RETURNED = 20
+AI_LOG_CAP = 50
 
 
 class TrafficStore:
@@ -42,6 +43,7 @@ class TrafficStore:
             "power": True,
             "blocked_events": [],
             "blocked_domain_counts": {},
+            "ai_log": [],
         }
 
     @staticmethod
@@ -59,6 +61,7 @@ class TrafficStore:
             "power": bool(data.get("power", True)),
             "blocked_events": list(data.get("blocked_events", [])),
             "blocked_domain_counts": dict(data.get("blocked_domain_counts", {})),
+            "ai_log": list(data.get("ai_log", [])),
         }
 
     @contextmanager
@@ -182,7 +185,16 @@ class TrafficStore:
             "blocked_events": state["blocked_events"][:BLOCKED_EVENTS_RETURNED],
             "top_blocked_domains": top_blocked_domains,
             "blocked_domain_total": len(state["blocked_domain_counts"]),
+            "blocked_domain_counts": dict(state["blocked_domain_counts"]),
+            "ai_log": state["ai_log"],
         }
+
+    def add_ai_log_entry(self, summary: str) -> dict[str, Any]:
+        entry = {"timestamp": datetime.now(timezone.utc).isoformat(), "summary": summary}
+        with self._transact() as state:
+            state["ai_log"].insert(0, entry)
+            state["ai_log"] = state["ai_log"][:AI_LOG_CAP]
+        return entry
 
     def get_power(self) -> bool:
         return self._read_locked()["power"]

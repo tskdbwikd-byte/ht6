@@ -15,6 +15,8 @@ ROOT_DIR = Path(__file__).resolve().parents[1]
 if str(ROOT_DIR) not in sys.path:
     sys.path.append(str(ROOT_DIR))
 
+from ai_logger import build_summary_prompt
+from ai_logger import OLLAMA_URL as AI_LOG_OLLAMA_URL
 from blocklist_store import BlocklistStore
 from chat import OLLAMA_CHAT_URL, build_messages
 from preset_blocklists import PRESETS
@@ -26,6 +28,28 @@ BLOCKLIST = BlocklistStore(state_file=str(ROOT_DIR / "blocklist.json"))
 
 _connections: set[WebSocket] = set()
 _connections_lock = asyncio.Lock()
+_last_ai_log_blocked_total = 0
+_last_ai_log_event_total = 0
+_ai_log_generating = False
+
+
+AI_BLOCKLIST_SOURCES = {"ollama", "ollama-auto"}
+
+
+def build_ai_blocked_domains(blocked_domain_counts: dict[str, int]) -> list[dict[str, Any]]:
+    entries = [
+        {
+            "domain": entry["domain"],
+            "reason": entry.get("reason"),
+            "source": entry["source"],
+            "addedAt": entry.get("added_at"),
+            "count": blocked_domain_counts.get(entry["domain"], 0),
+        }
+        for entry in BLOCKLIST.snapshot()
+        if entry.get("source") in AI_BLOCKLIST_SOURCES
+    ]
+    entries.sort(key=lambda e: e["count"], reverse=True)
+    return entries
 
 
 def build_dashboard_payload() -> dict[str, Any]:
@@ -44,6 +68,8 @@ def build_dashboard_payload() -> dict[str, Any]:
         "blockedEvents": snapshot["blocked_events"],
         "topBlockedDomains": snapshot["top_blocked_domains"],
         "blockedDomainTotal": snapshot["blocked_domain_total"],
+        "aiBlockedDomains": build_ai_blocked_domains(snapshot["blocked_domain_counts"]),
+        "aiLog": snapshot["ai_log"],
     }
 
 
@@ -64,16 +90,20 @@ async def _broadcast(payload: dict[str, Any]) -> None:
 
 async def _watch_state_file() -> None:
     async for _changes in awatch(STORE.state_file):
-        await _broadcast(build_dashboard_payload())
+        payload = build_dashboard_payload()
+        await _broadcast(payload)
+        asyncio.create_task(_maybe_generate_ai_log_entry(payload["totals"]))
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     watcher_task = asyncio.create_task(_watch_state_file())
+    auto_analyze_task = asyncio.create_task(_auto_analyze_loop())
     try:
         yield
     finally:
         watcher_task.cancel()
+        auto_analyze_task.cancel()
 
 
 app = FastAPI(lifespan=lifespan)
@@ -179,31 +209,116 @@ def disable_preset(preset_id: str):
     return {"domains": BLOCKLIST.snapshot(), "presets": build_preset_status()}
 
 
-@app.post("/api/suggestions/generate")
-async def generate_suggestions():
+def _analyze_candidates() -> tuple[list[dict[str, Any]], set[str]]:
     snapshot = STORE.snapshot()
     blocked_domains = BLOCKLIST.domains()
     candidates = [d for d in snapshot["top_domains"] if not BLOCKLIST.is_blocked(d["domain"])][:MAX_CANDIDATES]
+    return candidates, blocked_domains
 
+
+async def _fetch_suggestions(candidates: list[dict[str, Any]], blocked_domains: set[str]) -> list[dict[str, str]]:
+    """Ask Ollama which of the given not-yet-blocked domains look like trackers/ads.
+    Shared by the manual "Analyze with Ollama" button and the background auto-analyze loop."""
+    prompt = build_prompt(candidates, blocked_domains)
+
+    async with httpx.AsyncClient(timeout=90) as client:
+        resp = await client.post(
+            OLLAMA_URL,
+            json={"model": OLLAMA_MODEL, "prompt": prompt, "stream": False, "format": "json"},
+        )
+        resp.raise_for_status()
+        payload = resp.json()
+
+    candidate_domains = {c["domain"] for c in candidates}
+    return parse_suggestions(payload.get("response", ""), blocked_domains, candidate_domains)
+
+
+@app.post("/api/suggestions/generate")
+async def generate_suggestions():
+    candidates, blocked_domains = _analyze_candidates()
     if not candidates:
         return {"suggestions": [], "note": "No new domains to analyze yet."}
 
-    prompt = build_prompt(candidates, blocked_domains)
-
     try:
-        async with httpx.AsyncClient(timeout=90) as client:
-            resp = await client.post(
-                OLLAMA_URL,
-                json={"model": OLLAMA_MODEL, "prompt": prompt, "stream": False, "format": "json"},
-            )
-            resp.raise_for_status()
-            payload = resp.json()
+        suggestions = await _fetch_suggestions(candidates, blocked_domains)
     except httpx.HTTPError as exc:
         raise HTTPException(status_code=502, detail=f"Ollama unavailable: {exc}") from exc
 
-    candidate_domains = {c["domain"] for c in candidates}
-    suggestions = parse_suggestions(payload.get("response", ""), blocked_domains, candidate_domains)
     return {"suggestions": suggestions}
+
+
+AUTO_ANALYZE_INTERVAL_SECONDS = 300
+
+
+async def _auto_analyze_loop() -> None:
+    while True:
+        await asyncio.sleep(AUTO_ANALYZE_INTERVAL_SECONDS)
+        try:
+            candidates, blocked_domains = _analyze_candidates()
+            if not candidates:
+                continue
+            suggestions = await _fetch_suggestions(candidates, blocked_domains)
+            for suggestion in suggestions:
+                BLOCKLIST.add(suggestion["domain"], source="ollama-auto", reason=suggestion["reason"])
+        except Exception:
+            # Ollama may be offline or misbehaving -- skip this cycle, try again next interval.
+            continue
+
+
+# How many new events (dns + tls + blocked combined) accumulate between AI log
+# entries. Event-count-based rather than a fixed timer, so quiet networks don't
+# get spammed with "nothing happened" entries and busy ones log more often.
+AI_LOG_EVENT_INTERVAL = 50
+
+
+async def _generate_ai_log_entry() -> dict[str, Any]:
+    global _last_ai_log_blocked_total
+    snapshot = STORE.snapshot()
+    blocked_total = snapshot["totals"].get("blocked", 0)
+    blocked_since_last = max(0, blocked_total - _last_ai_log_blocked_total)
+    prompt = build_summary_prompt(snapshot, blocked_since_last)
+
+    async with httpx.AsyncClient(timeout=90) as client:
+        resp = await client.post(
+            AI_LOG_OLLAMA_URL,
+            json={"model": OLLAMA_MODEL, "prompt": prompt, "stream": False},
+        )
+        resp.raise_for_status()
+        payload = resp.json()
+
+    summary = payload.get("response", "").strip() or "Nothing notable to report."
+    _last_ai_log_blocked_total = blocked_total
+    return STORE.add_ai_log_entry(summary)
+
+
+async def _maybe_generate_ai_log_entry(totals: dict[str, int]) -> None:
+    """Fired on every traffic_state.json change; only actually calls Ollama once
+    enough new events have accumulated since the last log entry."""
+    global _last_ai_log_event_total, _ai_log_generating
+    if _ai_log_generating:
+        return
+    event_total = totals.get("events", 0)
+    if event_total - _last_ai_log_event_total < AI_LOG_EVENT_INTERVAL:
+        return
+
+    _last_ai_log_event_total = event_total
+    _ai_log_generating = True
+    try:
+        await _generate_ai_log_entry()
+    except Exception:
+        # Ollama may be offline or misbehaving -- try again once more events land.
+        pass
+    finally:
+        _ai_log_generating = False
+
+
+@app.post("/api/ai-log/generate")
+async def generate_ai_log_entry():
+    try:
+        entry = await _generate_ai_log_entry()
+    except httpx.HTTPError as exc:
+        raise HTTPException(status_code=502, detail=f"Ollama unavailable: {exc}") from exc
+    return entry
 
 
 class ChatMessage(BaseModel):

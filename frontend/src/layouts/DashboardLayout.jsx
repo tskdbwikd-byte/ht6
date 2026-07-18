@@ -1,6 +1,6 @@
 import { Link, NavLink, Outlet } from 'react-router-dom'
 import { Logo } from '../components/Logo'
-import { BanIcon, DashboardIcon, ListIcon, ShieldIcon } from '../components/icons'
+import { BanIcon, DashboardIcon, ListIcon, PawIcon, ShieldIcon } from '../components/icons'
 import { useLiveDashboard } from '../hooks/useLiveDashboard'
 
 const NAV_ITEMS = [
@@ -8,6 +8,7 @@ const NAV_ITEMS = [
   { to: '/dashboard/protection', label: 'Protection', icon: ShieldIcon, end: false },
   { to: '/dashboard/blocklist', label: 'Blocklist', icon: ListIcon, end: false },
   { to: '/dashboard/blocked', label: 'Blocked', icon: BanIcon, end: false },
+  { to: '/kids', label: "Kids (Patrick)", icon: PawIcon, end: false },
 ]
 
 export default function DashboardLayout() {
