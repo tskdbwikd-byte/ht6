@@ -1,0 +1,24 @@
+# Dependencies
+node_modules/
+frontend/node_modules/
+backend/venv/
+.venv/
+
+# Build outputs
+frontend/dist/
+frontend/.vite/
+
+# Local environment and caches
+.env
+.env.*
+.pyc
+__pycache__/
+*.py[cod]
+
+# OS/editor junk
+.DS_Store
+.vscode/
+.idea/
+
+# Local runtime artifacts
+*.log
