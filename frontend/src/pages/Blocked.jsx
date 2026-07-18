@@ -1,7 +1,13 @@
 import { useMemo, useState } from 'react'
 import { useOutletContext } from 'react-router-dom'
+import { SparkleIcon } from '../components/icons'
 import StatCard from '../components/StatCard'
 import { clearActivity } from '../lib/api'
+
+const AI_SOURCE_LABEL = {
+  ollama: 'AI suggested (approved)',
+  'ollama-auto': 'AI auto-blocked',
+}
 
 function formatTimestamp(iso) {
   try {
@@ -19,7 +25,7 @@ function formatTimestamp(iso) {
 
 function Blocked() {
   const { data } = useOutletContext()
-  const { totals, blockedEvents, topBlockedDomains, blockedDomainTotal } = data
+  const { totals, blockedEvents, topBlockedDomains, blockedDomainTotal, aiBlockedDomains } = data
   const [query, setQuery] = useState('')
   const [clearPending, setClearPending] = useState(false)
   const [clearError, setClearError] = useState(null)
@@ -62,6 +68,50 @@ function Blocked() {
           value={topBlockedDomains[0]?.domain ?? '—'}
           detail={topBlockedDomains[0] ? `${topBlockedDomains[0].count} hits` : 'No blocks yet'}
         />
+      </section>
+
+      <section className="mt-4 rounded-2xl border border-hairline bg-surface p-5 shadow-card">
+        <div className="flex items-center gap-2">
+          <SparkleIcon className="h-4 w-4 text-brand" />
+          <h3 className="text-lg font-semibold text-ink">AI-assisted blocks</h3>
+        </div>
+        <p className="mt-1 text-sm text-ink-muted">
+          Domains blocked because Ollama flagged them as trackers/ads — either auto-blocked by the
+          periodic background scan, or approved by you from a suggestion.
+        </p>
+
+        {aiBlockedDomains.length > 0 ? (
+          <ul className="mt-4 divide-y divide-hairline">
+            {aiBlockedDomains.map((entry) => (
+              <li key={entry.domain} className="flex items-center gap-3 py-2 text-sm">
+                <span
+                  className={`shrink-0 rounded-md px-2 py-0.5 text-xs font-semibold uppercase tracking-wide ${
+                    entry.source === 'ollama-auto' ? 'badge-blocked' : 'badge-dns'
+                  }`}
+                >
+                  {entry.source === 'ollama-auto' ? 'Auto' : 'Approved'}
+                </span>
+                <div className="min-w-0 flex-1">
+                  <p className="truncate font-medium text-ink" title={entry.domain}>
+                    {entry.domain}
+                  </p>
+                  <p className="truncate text-xs text-ink-muted" title={entry.reason ?? ''}>
+                    {AI_SOURCE_LABEL[entry.source] ?? entry.source}
+                    {entry.reason ? ` · ${entry.reason}` : ''}
+                  </p>
+                </div>
+                <span className="shrink-0 tabular-nums text-xs font-medium text-ink-muted">
+                  {entry.count} hit{entry.count === 1 ? '' : 's'}
+                </span>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p className="mt-4 text-sm text-ink-muted">
+            No AI-flagged blocks yet — the background scan runs periodically, or use "Analyze with
+            Ollama" on the Blocklist page.
+          </p>
+        )}
       </section>
 
       {topBlockedDomains.length > 0 && (

@@ -11,6 +11,8 @@ const INITIAL_DASHBOARD = {
   blockedEvents: [],
   topBlockedDomains: [],
   blockedDomainTotal: 0,
+  aiBlockedDomains: [],
+  aiLog: [],
 }
 
 const RECONNECT_DELAY_MS = 2000

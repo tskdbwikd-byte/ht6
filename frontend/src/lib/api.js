@@ -81,6 +81,15 @@ export async function clearActivity() {
   return res.json()
 }
 
+export async function generateAiLogEntry() {
+  const res = await fetch('/api/ai-log/generate', { method: 'POST' })
+  if (!res.ok) {
+    const body = await res.json().catch(() => ({}))
+    throw new Error(body.detail || 'Failed to generate log entry')
+  }
+  return res.json()
+}
+
 export async function sendChatMessage(message, history = [], mode = 'adult') {
   const res = await fetch('/api/chat', {
     method: 'POST',

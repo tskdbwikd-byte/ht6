@@ -1,13 +1,21 @@
 import { useCallback, useEffect, useState } from 'react'
+import { useOutletContext } from 'react-router-dom'
 import ChatPanel from '../components/ChatPanel'
-import { ListIcon, SparkleIcon, TrashIcon } from '../components/icons'
+import { ListIcon, LogIcon, SparkleIcon, TrashIcon } from '../components/icons'
 import PresetBlocklists from '../components/PresetBlocklists'
-import { addBlockedDomain, generateSuggestions, getBlocklist, removeBlockedDomain } from '../lib/api'
+import {
+  addBlockedDomain,
+  generateAiLogEntry,
+  generateSuggestions,
+  getBlocklist,
+  removeBlockedDomain,
+} from '../lib/api'
 
 const SOURCE_LABEL = {
   seed: 'Starter list',
   manual: 'Manual',
-  ollama: 'Ollama suggestion',
+  ollama: 'AI suggested (approved)',
+  'ollama-auto': 'AI auto-blocked',
 }
 
 function sourceLabel(source) {
@@ -30,6 +38,9 @@ function formatDate(iso) {
 }
 
 function Blocklist() {
+  const { data: dashboardData } = useOutletContext()
+  const aiLog = dashboardData.aiLog
+
   const [domains, setDomains] = useState([])
   const [loading, setLoading] = useState(true)
   const [listError, setListError] = useState(null)
@@ -43,6 +54,9 @@ function Blocklist() {
   const [suggestError, setSuggestError] = useState(null)
   const [suggestNote, setSuggestNote] = useState(null)
   const [acceptingDomain, setAcceptingDomain] = useState(null)
+
+  const [logPending, setLogPending] = useState(false)
+  const [logError, setLogError] = useState(null)
 
   const refresh = useCallback(async () => {
     try {
@@ -119,6 +133,18 @@ function Blocklist() {
     setSuggestions((current) => current?.filter((s) => s.domain !== domain) ?? null)
   }
 
+  const handleGenerateLog = async () => {
+    setLogPending(true)
+    setLogError(null)
+    try {
+      await generateAiLogEntry()
+    } catch (err) {
+      setLogError(err.message)
+    } finally {
+      setLogPending(false)
+    }
+  }
+
   return (
     <main className="mx-auto max-w-4xl px-6 py-8 md:px-10">
       <header>
@@ -193,6 +219,45 @@ function Blocklist() {
         <div className="mt-4">
           <ChatPanel />
         </div>
+      </section>
+
+      <section className="mt-4 rounded-2xl border border-hairline bg-surface p-5 shadow-card">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div className="flex items-center gap-2">
+            <LogIcon className="h-4 w-4 text-ink-secondary" />
+            <h2 className="text-lg font-semibold text-ink">AI traffic log</h2>
+          </div>
+          <button
+            type="button"
+            onClick={handleGenerateLog}
+            disabled={logPending}
+            className="rounded-full border border-hairline px-4 py-2 text-sm font-semibold text-ink transition hover:bg-page disabled:opacity-60"
+          >
+            {logPending ? 'Summarizing…' : 'Generate now'}
+          </button>
+        </div>
+        <p className="mt-2 text-sm text-ink-muted">
+          Ollama periodically writes a short summary of recent traffic here — a running, plain-English
+          log instead of raw event counts.
+        </p>
+
+        {logError && <p className="mt-3 rounded-xl px-3 py-2 text-sm alert-critical">{logError}</p>}
+
+        {aiLog.length > 0 ? (
+          <ul className="mt-4 max-h-96 space-y-3 overflow-y-auto">
+            {aiLog.map((entry, index) => (
+              <li key={`${entry.timestamp}-${index}`} className="rounded-xl border border-hairline bg-surface2 px-3 py-3">
+                <p className="text-xs font-medium text-ink-muted">{formatDate(entry.timestamp)}</p>
+                <p className="mt-1 text-sm text-ink">{entry.summary}</p>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p className="mt-4 text-sm text-ink-muted">
+            No log entries yet — they're written automatically every few minutes, or click "Generate
+            now".
+          </p>
+        )}
       </section>
 
       <PresetBlocklists onChange={setDomains} />
