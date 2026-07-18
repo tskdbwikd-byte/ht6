@@ -11,7 +11,7 @@ const SHOW_MS = 5500
 const HIDE_MS = 7000
 
 function PixelHeart({ className = '', style }) {
-  const p = 2
+  const p = 3
   const cells = [
     [1, 0],
     [2, 0],
@@ -104,43 +104,43 @@ export default function CatBuddy({ hovered }) {
       <div
         className="absolute transition-opacity duration-300"
         style={{
-          right: CAT_RIGHT + CAT_SIZE + 8,
+          right: CAT_RIGHT + CAT_SIZE + 12,
           bottom: catBottom + CAT_SIZE * 0.45,
           opacity: showing ? 1 : 0,
-          maxWidth: 168,
+          maxWidth: 260,
         }}
       >
         <div
-          className="relative bg-white px-3 py-2.5 text-[#1a2b28]"
+          className="relative bg-white px-4 py-3.5 text-[#1a2b28]"
           style={{
             fontFamily: '"Press Start 2P", monospace',
-            fontSize: 8,
+            fontSize: 12,
             lineHeight: 1.55,
-            border: '3px solid #1a2b28',
-            boxShadow: '3px 3px 0 #1a2b28',
+            border: '4px solid #1a2b28',
+            boxShadow: '4px 4px 0 #1a2b28',
             imageRendering: 'pixelated',
           }}
         >
           {MESSAGES[index]}
           {/* Pixel tail pointing toward the cat */}
           <span
-            className="absolute top-1/2 -right-[9px] -translate-y-1/2"
+            className="absolute top-1/2 -right-[12px] -translate-y-1/2"
             style={{
               width: 0,
               height: 0,
-              borderTop: '6px solid transparent',
-              borderBottom: '6px solid transparent',
-              borderLeft: '8px solid #1a2b28',
+              borderTop: '8px solid transparent',
+              borderBottom: '8px solid transparent',
+              borderLeft: '11px solid #1a2b28',
             }}
           />
           <span
-            className="absolute top-1/2 -right-[5px] -translate-y-1/2"
+            className="absolute top-1/2 -right-[7px] -translate-y-1/2"
             style={{
               width: 0,
               height: 0,
-              borderTop: '4px solid transparent',
-              borderBottom: '4px solid transparent',
-              borderLeft: '6px solid #ffffff',
+              borderTop: '5px solid transparent',
+              borderBottom: '5px solid transparent',
+              borderLeft: '8px solid #ffffff',
             }}
           />
         </div>
@@ -151,20 +151,20 @@ export default function CatBuddy({ hovered }) {
         <div
           className="absolute"
           style={{
-            right: 6,
+            right: 8,
             bottom: catBottom + CAT_SIZE * 0.55,
-            width: 28,
-            height: 56,
+            width: 40,
+            height: 72,
           }}
         >
-          <PixelHeart className="absolute animate-cat-heart" style={{ left: 2, bottom: 28 }} />
+          <PixelHeart className="absolute animate-cat-heart" style={{ left: 4, bottom: 36 }} />
           <PixelHeart
             className="absolute animate-cat-heart"
-            style={{ left: 12, bottom: 40, animationDelay: '0.25s' }}
+            style={{ left: 16, bottom: 50, animationDelay: '0.25s' }}
           />
           <PixelHeart
             className="absolute animate-cat-heart"
-            style={{ left: 4, bottom: 48, animationDelay: '0.5s' }}
+            style={{ left: 6, bottom: 60, animationDelay: '0.5s' }}
           />
         </div>
       )}

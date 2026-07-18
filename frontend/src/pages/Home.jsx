@@ -9,7 +9,7 @@ export default function Home() {
     <main className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6">
       <RainHero closed={umbrellaClosed} />
       <div className="relative z-30 flex flex-col items-center gap-8 animate-fade-up">
-        <h1 className="pointer-events-none font-display text-6xl font-normal tracking-tight text-ink sm:text-7xl md:text-8xl">
+        <h1 className="pointer-events-none font-display text-7xl font-normal tracking-tight text-ink sm:text-8xl md:text-9xl">
           Parasol
         </h1>
         <Link
