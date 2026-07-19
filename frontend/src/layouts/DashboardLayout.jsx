@@ -3,14 +3,42 @@ import { Logo } from '../components/Logo'
 import { BanIcon, DashboardIcon, ListIcon, PawIcon, ShieldIcon, SparkleIcon } from '../components/icons'
 import { useLiveDashboard } from '../hooks/useLiveDashboard'
 
-const NAV_ITEMS = [
+const KIDS_NAV = [{ to: '/kids', label: 'Kids (Patrick)', icon: PawIcon, end: false }]
+
+const PARENT_NAV = [
   { to: '/dashboard', label: 'Overview', icon: DashboardIcon, end: true },
   { to: '/dashboard/status', label: 'Status', icon: ShieldIcon, end: false },
   { to: '/dashboard/filters', label: 'Filters', icon: ListIcon, end: false },
   { to: '/dashboard/block-history', label: 'Block History', icon: BanIcon, end: false },
   { to: '/dashboard/network-log', label: 'Network Log', icon: SparkleIcon, end: false },
-  { to: '/kids', label: "Kids (Patrick)", icon: PawIcon, end: false },
 ]
+
+function NavSection({ title, items }) {
+  return (
+    <div className="rounded-2xl bg-white/[0.04] p-2">
+      <p className="px-2 pb-1.5 pt-1 text-[10px] font-semibold uppercase tracking-wider text-white/40">
+        {title}
+      </p>
+      <div className="flex flex-col gap-0.5">
+        {items.map(({ to, label, icon: Icon, end }) => (
+          <NavLink
+            key={to}
+            to={to}
+            end={end}
+            className={({ isActive }) =>
+              `flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition ${
+                isActive ? 'bg-white/10 text-white' : 'text-white/60 hover:bg-white/5 hover:text-white'
+              }`
+            }
+          >
+            <Icon className="h-4 w-4" />
+            {label}
+          </NavLink>
+        ))}
+      </div>
+    </div>
+  )
+}
 
 export default function DashboardLayout() {
   const { data, connected } = useLiveDashboard()
@@ -23,22 +51,9 @@ export default function DashboardLayout() {
           <span className="font-display text-xl font-normal tracking-tight">Parasol</span>
         </Link>
 
-        <nav className="flex flex-1 flex-col gap-1">
-          {NAV_ITEMS.map(({ to, label, icon: Icon, end }) => (
-            <NavLink
-              key={to}
-              to={to}
-              end={end}
-              className={({ isActive }) =>
-                `flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition ${
-                  isActive ? 'bg-white/10 text-white' : 'text-white/60 hover:bg-white/5 hover:text-white'
-                }`
-              }
-            >
-              <Icon className="h-4 w-4" />
-              {label}
-            </NavLink>
-          ))}
+        <nav className="flex flex-1 flex-col gap-4">
+          <NavSection title="Kids" items={KIDS_NAV} />
+          <NavSection title="Parents" items={PARENT_NAV} />
         </nav>
 
         <Link

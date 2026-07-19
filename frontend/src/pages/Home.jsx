@@ -13,7 +13,7 @@ export default function Home() {
           Parasol
         </h1>
         <Link
-          to="/kids"
+          to="/dashboard"
           className="cursor-none rounded-xl bg-brand px-8 py-3 text-sm font-semibold text-white transition hover:bg-brand-hover"
           onMouseEnter={() => setUmbrellaClosed(true)}
           onMouseLeave={() => setUmbrellaClosed(false)}
