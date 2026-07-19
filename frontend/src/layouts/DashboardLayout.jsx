@@ -1,13 +1,14 @@
 import { Link, NavLink, Outlet } from 'react-router-dom'
 import { Logo } from '../components/Logo'
-import { BanIcon, DashboardIcon, ListIcon, PawIcon, ShieldIcon } from '../components/icons'
+import { BanIcon, DashboardIcon, ListIcon, PawIcon, ShieldIcon, SparkleIcon } from '../components/icons'
 import { useLiveDashboard } from '../hooks/useLiveDashboard'
 
 const NAV_ITEMS = [
   { to: '/dashboard', label: 'Overview', icon: DashboardIcon, end: true },
-  { to: '/dashboard/protection', label: 'Protection', icon: ShieldIcon, end: false },
-  { to: '/dashboard/blocklist', label: 'Blocklist', icon: ListIcon, end: false },
-  { to: '/dashboard/blocked', label: 'Blocked', icon: BanIcon, end: false },
+  { to: '/dashboard/status', label: 'Status', icon: ShieldIcon, end: false },
+  { to: '/dashboard/filters', label: 'Filters', icon: ListIcon, end: false },
+  { to: '/dashboard/block-history', label: 'Block History', icon: BanIcon, end: false },
+  { to: '/dashboard/network-log', label: 'Network Log', icon: SparkleIcon, end: false },
   { to: '/kids', label: "Kids (Patrick)", icon: PawIcon, end: false },
 ]
 

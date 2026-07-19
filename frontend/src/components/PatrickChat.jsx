@@ -106,7 +106,7 @@ export default function PatrickChat() {
       setMessages((current) => [...current, { role: 'assistant', content: data.reply }])
     } catch (err) {
       setError(
-        err.message?.includes('Ollama')
+        err.message?.includes('Patrick unavailable')
           ? "Patrick is napping (chat isn't connected right now). Try again soon, or ask a grown-up!"
           : err.message,
       )

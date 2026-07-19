@@ -18,7 +18,7 @@ if str(ROOT_DIR) not in sys.path:
 from ai_logger import build_summary_prompt
 from ai_logger import OLLAMA_URL as AI_LOG_OLLAMA_URL
 from blocklist_store import BlocklistStore
-from chat import OLLAMA_CHAT_URL, build_messages
+from chat import OLLAMA_CHAT_URL, build_messages, extract_block_directives
 from preset_blocklists import PRESETS
 from suggestions import MAX_CANDIDATES, OLLAMA_MODEL, OLLAMA_URL, build_prompt, parse_suggestions
 from traffic_store import TrafficStore
@@ -242,7 +242,7 @@ async def generate_suggestions():
     try:
         suggestions = await _fetch_suggestions(candidates, blocked_domains)
     except httpx.HTTPError as exc:
-        raise HTTPException(status_code=502, detail=f"Ollama unavailable: {exc}") from exc
+        raise HTTPException(status_code=502, detail=f"Patrick unavailable: {exc}") from exc
 
     return {"suggestions": suggestions}
 
@@ -317,7 +317,7 @@ async def generate_ai_log_entry():
     try:
         entry = await _generate_ai_log_entry()
     except httpx.HTTPError as exc:
-        raise HTTPException(status_code=502, detail=f"Ollama unavailable: {exc}") from exc
+        raise HTTPException(status_code=502, detail=f"Patrick unavailable: {exc}") from exc
     return entry
 
 
@@ -353,10 +353,22 @@ async def chat(request: ChatRequest):
             resp.raise_for_status()
             payload = resp.json()
     except httpx.HTTPError as exc:
-        raise HTTPException(status_code=502, detail=f"Ollama unavailable: {exc}") from exc
+        raise HTTPException(status_code=502, detail=f"Patrick unavailable: {exc}") from exc
 
     reply = payload.get("message", {}).get("content", "").strip()
-    return {"reply": reply or "I couldn't come up with a response for that."}
+
+    blocked_domains: list[str] = []
+    if mode == "adult" and reply:
+        reply, requested_domains = extract_block_directives(reply)
+        for domain in requested_domains:
+            if BLOCKLIST.add(domain, source="chat", reason="Blocked via AI chat request"):
+                blocked_domains.append(domain)
+
+    return {
+        "reply": reply or "I couldn't come up with a response for that.",
+        "blockedDomains": blocked_domains,
+        "domains": BLOCKLIST.snapshot() if blocked_domains else None,
+    }
 
 
 @app.websocket("/ws/dashboard")

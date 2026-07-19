@@ -23,7 +23,7 @@ function formatTimestamp(iso) {
   }
 }
 
-function Blocked() {
+function BlockHistory() {
   const { data } = useOutletContext()
   const { totals, blockedEvents, topBlockedDomains, blockedDomainTotal, aiBlockedDomains } = data
   const [query, setQuery] = useState('')
@@ -53,7 +53,7 @@ function Blocked() {
   return (
     <main className="mx-auto max-w-6xl px-6 py-8 md:px-10">
       <header>
-        <p className="text-sm font-medium text-ink-secondary">Blocked</p>
+        <p className="text-sm font-medium text-ink-secondary">Block History</p>
         <h1 className="font-display text-2xl font-normal tracking-tight text-ink">Blocked activity</h1>
         <p className="mt-1 text-sm text-ink-muted">
           Every DNS lookup the resolver answered with NXDOMAIN because the domain is on your blocklist.
@@ -76,7 +76,7 @@ function Blocked() {
           <h3 className="text-lg font-semibold text-ink">AI-assisted blocks</h3>
         </div>
         <p className="mt-1 text-sm text-ink-muted">
-          Domains blocked because Ollama flagged them as trackers/ads — either auto-blocked by the
+          Domains blocked because Patrick flagged them as trackers/ads, either auto-blocked by the
           periodic background scan, or approved by you from a suggestion.
         </p>
 
@@ -108,8 +108,8 @@ function Blocked() {
           </ul>
         ) : (
           <p className="mt-4 text-sm text-ink-muted">
-            No AI-flagged blocks yet — the background scan runs periodically, or use "Analyze with
-            Ollama" on the Blocklist page.
+            No AI-flagged blocks yet, the background scan runs periodically, or use "Analyze with
+            Patrick" on the Network Log page.
           </p>
         )}
       </section>
@@ -185,4 +185,4 @@ function Blocked() {
   )
 }
 
-export default Blocked
+export default BlockHistory

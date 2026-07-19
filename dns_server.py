@@ -108,7 +108,7 @@ def main() -> None:
     try:
         sock.bind((args.listen, args.port))
     except PermissionError:
-        print(f"Permission denied binding {args.listen}:{args.port} — try running with sudo.")
+        print(f"Permission denied binding {args.listen}:{args.port}, try running with sudo.")
         raise SystemExit(1)
     except OSError as exc:
         print(f"Could not bind {args.listen}:{args.port}: {exc}")

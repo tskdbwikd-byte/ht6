@@ -41,7 +41,7 @@ function TrafficChart({ data }) {
     <div className="rounded-2xl border border-hairline bg-surface p-5 shadow-card">
       <p className="text-sm font-medium text-ink-secondary">Traffic over time</p>
       <h3 className="text-lg font-semibold text-ink">DNS, TLS &amp; blocked activity</h3>
-      <p className="text-xs text-ink-muted">Instances per second — not a running total.</p>
+      <p className="text-xs text-ink-muted">Instances per second, not a running total.</p>
       <div className="mt-4 h-64">
         {hasData ? (
           <ResponsiveContainer width="100%" height="100%">

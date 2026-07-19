@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { sendChatMessage } from '../lib/api'
 import { SendIcon } from './icons'
 
-function ChatPanel() {
+function ChatPanel({ onBlocklistChange }) {
   const [messages, setMessages] = useState([])
   const [input, setInput] = useState('')
   const [pending, setPending] = useState(false)
@@ -28,6 +28,16 @@ function ChatPanel() {
     try {
       const data = await sendChatMessage(text, history)
       setMessages((current) => [...current, { role: 'assistant', content: data.reply }])
+      if (data.blockedDomains?.length > 0) {
+        setMessages((current) => [
+          ...current,
+          {
+            role: 'system',
+            content: `Blocked: ${data.blockedDomains.join(', ')}`,
+          },
+        ])
+        if (data.domains) onBlocklistChange?.(data.domains)
+      }
     } catch (err) {
       setError(err.message)
     } finally {
@@ -40,22 +50,32 @@ function ChatPanel() {
       <div ref={scrollRef} className="max-h-64 space-y-3 overflow-y-auto px-4 py-3">
         {messages.length === 0 && (
           <p className="text-sm text-ink-muted">
-            Ask about recent traffic, why something was flagged, or which blocklists to turn on.
+            Ask about recent traffic, why something was flagged, which blocklists to turn on, or just
+            say "block ads.example.com" and I'll do it.
           </p>
         )}
-        {messages.map((message, index) => (
-          <div key={index} className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-            <p
-              className={`max-w-[85%] whitespace-pre-wrap rounded-2xl px-3 py-2 text-sm ${
-                message.role === 'user'
-                  ? 'bg-brand text-white'
-                  : 'border border-hairline bg-surface text-ink'
-              }`}
-            >
-              {message.content}
-            </p>
-          </div>
-        ))}
+        {messages.map((message, index) => {
+          if (message.role === 'system') {
+            return (
+              <p key={index} className="text-center text-xs font-medium text-ink-muted">
+                {message.content}
+              </p>
+            )
+          }
+          return (
+            <div key={index} className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+              <p
+                className={`max-w-[85%] whitespace-pre-wrap rounded-2xl px-3 py-2 text-sm ${
+                  message.role === 'user'
+                    ? 'bg-brand text-white'
+                    : 'border border-hairline bg-surface text-ink'
+                }`}
+              >
+                {message.content}
+              </p>
+            </div>
+          )
+        })}
         {pending && <p className="text-sm text-ink-muted">Thinking…</p>}
       </div>
 
@@ -66,7 +86,7 @@ function ChatPanel() {
           type="text"
           value={input}
           onChange={(event) => setInput(event.target.value)}
-          placeholder="Ask about your traffic or blocklists…"
+          placeholder="Ask about your traffic, or ask me to block a domain…"
           className="min-w-0 flex-1 rounded-xl border border-hairline bg-page px-3 py-2 text-sm text-ink outline-none focus:border-brand"
         />
         <button

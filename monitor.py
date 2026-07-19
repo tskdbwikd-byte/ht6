@@ -140,7 +140,7 @@ def main():
         sniff(iface=iface, filter="udp port 53 or tcp port 443",
               prn=handle_packet, store=False)
     except PermissionError:
-        print("Permission denied — try running with sudo.")
+        print("Permission denied, try running with sudo.")
     except OSError as e:
         print(f"Error opening interface '{iface}': {e}")
         print("Check the interface name with: nmcli device status")

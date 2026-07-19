@@ -2,12 +2,13 @@ import { Navigate, Route, Routes } from 'react-router-dom'
 import DashboardLayout from './layouts/DashboardLayout'
 import KidsLayout from './layouts/KidsLayout'
 import MarketingLayout from './layouts/MarketingLayout'
-import Blocked from './pages/Blocked'
-import Blocklist from './pages/Blocklist'
+import BlockHistory from './pages/BlockHistory'
 import Dashboard from './pages/Dashboard'
+import Filters from './pages/Filters'
 import Home from './pages/Home'
 import KidsHome from './pages/KidsHome'
-import Protection from './pages/Protection'
+import NetworkLog from './pages/NetworkLog'
+import Status from './pages/Status'
 
 function App() {
   return (
@@ -22,14 +23,16 @@ function App() {
 
       <Route path="/dashboard" element={<DashboardLayout />}>
         <Route index element={<Dashboard />} />
-        <Route path="protection" element={<Protection />} />
-        <Route path="blocklist" element={<Blocklist />} />
-        <Route path="blocked" element={<Blocked />} />
+        <Route path="status" element={<Status />} />
+        <Route path="filters" element={<Filters />} />
+        <Route path="block-history" element={<BlockHistory />} />
+        <Route path="network-log" element={<NetworkLog />} />
       </Route>
 
-      <Route path="/protection" element={<Navigate to="/dashboard/protection" replace />} />
-      <Route path="/blocklist" element={<Navigate to="/dashboard/blocklist" replace />} />
-      <Route path="/blocked" element={<Navigate to="/dashboard/blocked" replace />} />
+      <Route path="/status" element={<Navigate to="/dashboard/status" replace />} />
+      <Route path="/filters" element={<Navigate to="/dashboard/filters" replace />} />
+      <Route path="/block-history" element={<Navigate to="/dashboard/block-history" replace />} />
+      <Route path="/network-log" element={<Navigate to="/dashboard/network-log" replace />} />
     </Routes>
   )
 }

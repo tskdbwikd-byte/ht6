@@ -1,3 +1,4 @@
+import re
 from typing import Any
 
 from suggestions import OLLAMA_MODEL
@@ -5,6 +6,16 @@ from suggestions import OLLAMA_MODEL
 OLLAMA_CHAT_URL = "http://localhost:11434/api/chat"
 MAX_HISTORY_MESSAGES = 12
 MAX_TOP_DOMAINS = 15
+
+BLOCK_DIRECTIVE_RE = re.compile(r"(?im)^\s*BLOCK_DOMAIN:\s*(\S+)\s*$")
+
+
+def extract_block_directives(reply: str) -> tuple[str, list[str]]:
+    """Pull out any BLOCK_DOMAIN: <domain> lines the model emitted, returning the
+    reply text with those lines removed and the list of domains it asked to block."""
+    domains = [match.group(1).strip().lower().rstrip(".") for match in BLOCK_DIRECTIVE_RE.finditer(reply)]
+    cleaned = BLOCK_DIRECTIVE_RE.sub("", reply).strip()
+    return cleaned, domains
 
 
 def build_system_prompt(
@@ -25,6 +36,14 @@ def build_system_prompt(
         "using ONLY the context below. Be concise and specific, and use plain text (no markdown "
         "tables). If asked for recommendations, only suggest domains that appear in the 'Most "
         "contacted domains' list and that are not already blocked.\n\n"
+        "You can also act, not just talk: if the user explicitly asks you to block a domain, "
+        "acknowledge it in your normal reply, and then on its own final line(s) emit exactly this "
+        "machine-readable format so the app can carry it out:\n"
+        "BLOCK_DOMAIN: <domain>\n"
+        "One line per domain if they asked for more than one. Only ever emit this line when the user "
+        "clearly asked you to block something specific -- never speculatively, and never for domains "
+        "you weren't asked about. Prefer domains that appear in the traffic context above, but you may "
+        "block any domain the user names explicitly.\n\n"
         f"Traffic totals: {totals}\n"
         f"Unique domains contacted: {traffic_snapshot.get('domain_total', 0)}\n"
         f"Most contacted domains recently (not necessarily blocked):\n{top_lines}\n\n"
