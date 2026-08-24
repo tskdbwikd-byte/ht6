@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="40" viewBox="0 0 160 40" aria-labelledby="logoTitle logoDesc" role="img">
+  <title id="logoTitle">YoursPrinted logo</title>
+  <desc id="logoDesc">A simple cube icon and the YoursPrinted wordmark</desc>
+  <defs>
+    <linearGradient id="g" x1="0" x2="1">
+      <stop offset="0" stop-color="#0EA5A2" />
+      <stop offset="1" stop-color="#06b6a4" />
+    </linearGradient>
+  </defs>
+  <!-- cube mark -->
+  <g transform="translate(6,4)">
+    <polygon points="0,10 10,4 30,4 20,10" fill="#0f172a" opacity="0.08" />
+    <path d="M10 4 L30 4 L40 10 L20 16 L10 10 Z" fill="url(#g)" />
+    <path d="M10 10 L20 16 L20 28 L10 22 Z" fill="#089e98" />
+    <path d="M20 16 L40 10 L40 22 L20 28 Z" fill="#057d76" />
+  </g>
+  <!-- wordmark -->
+  <text x="60" y="26" font-family="Inter, system-ui, Arial, sans-serif" font-weight="700" font-size="16" fill="#0f172a">YoursPrinted</text>
+</svg>

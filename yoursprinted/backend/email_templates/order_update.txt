@@ -1,0 +1,11 @@
+Hi {{name}},
+
+Your order {{orderId}} status changed to: {{status}}.
+
+File: {{fileName}}
+Estimated price: {{estimatedPrice}}
+ETA: {{eta}}
+
+View your order in the dashboard.
+
+— YoursPrinted

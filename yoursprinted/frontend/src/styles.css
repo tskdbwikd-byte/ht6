@@ -1,0 +1,96 @@
+:root{
+	--primary: #0EA5A2;
+	--accent: #0F172A;
+	--muted: #6B7280;
+	--bg: #F7F7F8;
+	--card: #ffffff;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);margin:0;font-family:Inter, system-ui, Arial, sans-serif;color:var(--accent)}
+input{padding:10px;margin-top:6px;width:100%;box-sizing:border-box;border:1px solid #e6e6e9;border-radius:8px}
+input:focus{outline:none;box-shadow:0 0 0 4px rgba(14,165,162,0.08);border-color:var(--primary)}
+button{padding:10px 14px;margin-top:8px;border-radius:8px;border:0;cursor:pointer;font-weight:600}
+button:hover{opacity:0.95}
+
+.btn{display:inline-block;padding:10px 16px;border-radius:10px;text-decoration:none;box-shadow:0 6px 18px rgba(14,165,162,0.06)}
+.btn.primary{background:var(--primary);color:white}
+.btn.ghost{background:transparent;color:var(--accent);border:1px solid rgba(15,23,42,0.06)}
+
+.landing{max-width:1100px;margin:20px auto}
+.hero{display:flex;gap:24px;align-items:center;padding:36px}
+.hero-body{flex:1}
+.hero h1{font-size:32px;margin:0 0 12px}
+.lead{color:var(--muted);margin:0 0 16px}
+.cta-row{display:flex;gap:12px}
+
+/* Sign-in card */
+.signin-card{max-width:760px;margin:28px auto;padding:24px;background:var(--card);border-radius:10px;box-shadow:0 8px 24px rgba(16,24,40,0.06)}
+.signin-card h3{margin:0 0 12px}
+.signin-actions{display:flex;gap:8px;align-items:center}
+
+.features{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding:24px}
+.card{background:var(--card);padding:18px;border-radius:10px;box-shadow:0 1px 2px rgba(16,24,40,0.04)}
+.card h3{margin:0 0 8px}
+.feature p{color:var(--muted);margin:0}
+
+/* App shell and content */
+.app-shell{min-height:100vh}
+.content-wrap{max-width:900px;margin:20px auto;padding:20px}
+
+/* Forms and upload */
+.form-row{display:flex;gap:12px}
+.form-row > div{flex:1}
+.file-preview{border:1px dashed rgba(15,23,42,0.06);padding:8px;border-radius:8px;background:#fff}
+
+/* Thumbnails */
+img[alt="thumb"], img[alt="server thumb"]{border-radius:8px;box-shadow:0 6px 18px rgba(16,24,40,0.06)}
+
+/* Admin table */
+table{width:100%;border-collapse:collapse}
+thead th{background:#fbfbfc;padding:10px;text-align:left;color:var(--muted);font-size:13px}
+tbody td{padding:10px;border-top:1px solid #f1f1f3}
+tbody tr:hover{background:#ffffff}
+
+.how{padding:24px}
+.steps{display:flex;gap:12px}
+.step{flex:1;text-align:center}
+.step strong{display:block;font-size:20px;background:var(--primary);color:white;width:40px;height:40px;border-radius:999px;margin:0 auto 8px;line-height:40px}
+
+.pricing{padding:24px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.price .price-amount{font-size:22px;color:var(--accent);margin:8px 0}
+
+.site-footer{padding:18px 24px;margin-top:20px}
+.footer-inner{display:flex;justify-content:space-between;color:var(--muted);max-width:1100px;margin:0 auto}
+
+@media(max-width:800px){
+	.hero{flex-direction:column}
+	.features,.grid,.steps{grid-template-columns:1fr}
+	.features{display:block}
+}
+
+/* Navigation */
+.site-nav{background:var(--card);box-shadow:0 1px 2px rgba(16,24,40,0.04);position:sticky;top:0;z-index:40}
+.nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:12px;padding:10px}
+.brand{display:flex;align-items:center;gap:12px}
+.brand img{height:36px}
+.menu-toggle{display:none;background:transparent;border:0;font-size:20px}
+.nav-links{margin-left:auto;display:flex;gap:12px;align-items:center}
+.nav-links a{padding:8px 12px;border-radius:8px;text-decoration:none;color:var(--accent)}
+.nav-links a.active{background:var(--primary);color:white}
+
+@media(max-width:800px){
+	.menu-toggle{display:block}
+	.nav-links{position:fixed;right:12px;top:64px;flex-direction:column;background:rgba(255,255,255,0.98);padding:12px;border-radius:8px;display:none;box-shadow:0 6px 18px rgba(16,24,40,0.12)}
+	.nav-links.open{display:flex}
+}
+
+/* FAQ accordion styling */
+details{background:var(--card);padding:12px;border-radius:8px;border:1px solid rgba(15,23,42,0.04)}
+details + details{margin-top:8px}
+summary{cursor:pointer;font-weight:600;outline:none}
+summary::-webkit-details-marker{display:none}
+details[open]{box-shadow:0 6px 18px rgba(16,24,40,0.06)}
+details p{margin:8px 0 0}
+
+

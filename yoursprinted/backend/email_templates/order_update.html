@@ -1,0 +1,21 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Order Update</title>
+  </head>
+  <body style="font-family: Arial, sans-serif; color: #0F172A; background: #F7F7F8; padding:24px;">
+    <div style="max-width:640px;margin:0 auto;background:white;padding:20px;border-radius:8px;">
+      <h2 style="color:#0EA5A2;margin-top:0">YoursPrinted — Order {{orderId}} Update</h2>
+      <p>Hi {{name}},</p>
+      <p>Your order <strong>{{orderId}}</strong> status changed to <strong>{{status}}</strong>.</p>
+      <table style="width:100%;border-collapse:collapse">
+        <tr><td style="padding:6px;color:#666">File</td><td style="padding:6px">{{fileName}}</td></tr>
+        <tr><td style="padding:6px;color:#666">Estimated price</td><td style="padding:6px">{{estimatedPrice}}</td></tr>
+        <tr><td style="padding:6px;color:#666">ETA</td><td style="padding:6px">{{eta}}</td></tr>
+      </table>
+      <p style="margin-top:16px">You can view your order details in the dashboard.</p>
+      <p style="color:#888;font-size:12px">This is an automated message from YoursPrinted.</p>
+    </div>
+  </body>
+</html>
