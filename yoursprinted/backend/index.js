@@ -9,7 +9,11 @@ const sgMail = require('@sendgrid/mail')
 const fs = require('fs')
 const Handlebars = require('handlebars')
 
-admin.initializeApp()
+// Initialize admin with explicit project and bucket to avoid metadata calls
+admin.initializeApp({
+  projectId: process.env.GCLOUD_PROJECT || process.env.FIREBASE_PROJECT || 'demo-project',
+  storageBucket: process.env.STORAGE_BUCKET || (process.env.GCLOUD_PROJECT || 'demo-project') + '.appspot.com',
+})
 
 const stripe = Stripe(process.env.STRIPE_SECRET || 'sk_test_placeholder')
 if(process.env.SENDGRID_API_KEY) sgMail.setApiKey(process.env.SENDGRID_API_KEY)
@@ -30,8 +34,32 @@ try{
 const app = express()
 app.use(cors({ origin: true }))
 
+// Simple in-memory rate limiter for quote submissions (per-IP)
+const quoteRate = new Map()
+function checkQuoteRate(ip){
+  const WINDOW = 60 * 60 * 1000 // 1 hour
+  const MAX = 20 // max quotes per IP per window
+  const now = Date.now()
+  let entry = quoteRate.get(ip)
+  if(!entry || now - entry.start > WINDOW){
+    entry = { start: now, count: 0 }
+  }
+  entry.count += 1
+  quoteRate.set(ip, entry)
+  return entry.count <= MAX
+}
+
+// Periodic cleanup to avoid memory leak
+setInterval(()=>{
+  const now = Date.now()
+  const WINDOW = 2 * 60 * 60 * 1000
+  for(const [ip, entry] of quoteRate.entries()){
+    if(now - entry.start > WINDOW) quoteRate.delete(ip)
+  }
+}, 30 * 60 * 1000)
+
 // Webhook endpoint must receive raw body for signature verification
-app.post('/webhook', express.raw({ type: 'application/json' }), (req, res) => {
+app.post('/webhook', express.raw({ type: 'application/json' }), async (req, res) => {
   const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET
   if (!webhookSecret) {
     // no verification in dev — accept and return
@@ -50,8 +78,30 @@ app.post('/webhook', express.raw({ type: 'application/json' }), (req, res) => {
   // handle relevant events
   if (event.type === 'checkout.session.completed') {
     const session = event.data.object
-    // TODO: mark order paid in Firestore using session.client_reference_id
     console.log('Checkout completed for', session.id)
+    try {
+      const db = admin.firestore()
+      const orderId = session.client_reference_id || session.client_reference || null
+      if (orderId) {
+        const ref = db.collection('orders').doc(orderId)
+        const snap = await ref.get()
+        if (snap.exists) {
+          await ref.update({
+            status: 'paid',
+            paidAt: new Date().toISOString(),
+            stripeSessionId: session.id,
+            stripePaymentIntent: session.payment_intent || null,
+          })
+          console.log('Order marked paid:', orderId)
+        } else {
+          console.warn('Order not found for checkout session client_reference_id:', orderId)
+        }
+      } else {
+        console.warn('No client_reference_id on session, cannot map to order')
+      }
+    } catch (e) {
+      console.error('Error updating order after checkout:', e)
+    }
   }
 
   res.status(200).send('received')
@@ -70,6 +120,46 @@ app.post('/api/estimate', (req, res) => {
   const materialMultiplier = material === 'petg' ? 1.15 : 1
   const price = Math.max(1, (volumeGrams * basePerGram * materialMultiplier)).toFixed(2)
   res.json({ price })
+})
+
+// Generate a signed upload URL for direct client upload to Storage
+app.post('/api/upload-url', async (req, res) => {
+  try {
+    const { fileName, contentType } = req.body || {}
+    console.log('upload-url called', { fileName, contentType, env_FIREBASE_STORAGE_EMULATOR_HOST: process.env.FIREBASE_STORAGE_EMULATOR_HOST })
+    if(!fileName) return res.status(400).json({ error: 'fileName required' })
+    const parsedName = path.basename(fileName)
+    const dest = `uploads/${Date.now()}-${parsedName}`
+
+    // If running against the Storage emulator, avoid using firebase-admin
+    // signing (which may attempt to access metadata) and return a simple
+    // emulator upload URL that the client can POST to directly.
+    const emulatorHost = process.env.FIREBASE_STORAGE_EMULATOR_HOST || process.env.STORAGE_EMULATOR_HOST
+    if (emulatorHost) {
+      const bucketName = process.env.STORAGE_BUCKET || (process.env.GCLOUD_PROJECT || process.env.FIREBASE_PROJECT || 'demo-project') + '.appspot.com'
+      const emulatorUrl = `http://${emulatorHost}/upload/storage/v1/b/${bucketName}/o?name=${encodeURIComponent(dest)}&uploadType=media`
+      return res.json({ url: emulatorUrl, path: dest, emulator: true })
+    }
+
+    const bucket = admin.storage().bucket()
+    const file = bucket.file(dest)
+
+    // Signed URL for write
+    const expires = Date.now() + 15 * 60 * 1000 // 15 minutes
+    const [url] = await file.getSignedUrl({
+      version: 'v4',
+      action: 'write',
+      expires,
+      contentType: contentType || 'application/octet-stream',
+    })
+
+    return res.json({ url, path: dest })
+  } catch (err) {
+    console.error('upload-url error', err && (err.stack || err))
+    const code = err && err.code
+    const message = err && (err.message || err.toString())
+    res.status(500).json({ error: message, code, stack: err && err.stack ? err.stack.split('\n').slice(0,5).join('\n') : undefined })
+  }
 })
 
 // Create a Stripe Checkout Session
@@ -134,11 +224,28 @@ app.get('/orders', async (req, res) => {
 // Save anonymous or user quotes for later retrieval
 app.post('/quotes', async (req, res) => {
   try {
+    const ip = req.headers['x-forwarded-for'] || req.ip || req.connection.remoteAddress || null
+    if(!checkQuoteRate(ip)) return res.status(429).json({ error: 'Rate limit exceeded' })
+
     const data = req.body || {}
+    const { email, phone, fileName, material, notes, estimate } = data
+
+    // Basic validation
+    if(!fileName || typeof fileName !== 'string' || fileName.length > 255) return res.status(400).json({ error: 'Invalid fileName' })
+    if(material && typeof material !== 'string') return res.status(400).json({ error: 'Invalid material' })
+    if(estimate && isNaN(Number(estimate))) return res.status(400).json({ error: 'Invalid estimate' })
+    if(email && typeof email === 'string' && email.length > 254) return res.status(400).json({ error: 'Invalid email' })
+
     const db = admin.firestore()
     const doc = await db.collection('quotes').add({
-      ...data,
+      email: email || null,
+      phone: phone || null,
+      fileName: fileName || '',
+      material: material || '',
+      notes: notes || '',
+      estimate: estimate || null,
       createdAt: new Date().toISOString(),
+      ip: ip || null,
     })
     res.json({ id: doc.id })
   } catch (err) {
@@ -159,6 +266,31 @@ app.get('/quotes', async (req, res) => {
     res.json({ quotes })
   } catch (err) {
     console.error('quotes list error', err)
+    res.status(500).json({ error: err.message })
+  }
+})
+
+// Return a downloadable URL for a server-generated thumbnail for a storage object
+app.get('/api/thumbnail-url', async (req, res) => {
+  try {
+    const { path: objectPath } = req.query || {}
+    if (!objectPath) return res.status(400).json({ error: 'path required' })
+
+    const bucketName = process.env.STORAGE_BUCKET || (process.env.GCLOUD_PROJECT || process.env.FIREBASE_PROJECT || 'demo-project') + '.appspot.com'
+    const thumbPath = objectPath.replace(/(\.[^/.]+)$/, '-thumb.svg')
+
+    // If running against the Storage emulator, return emulator download URL
+    const emulatorHost = process.env.FIREBASE_STORAGE_EMULATOR_HOST || process.env.STORAGE_EMULATOR_HOST
+    if (emulatorHost) {
+      const url = `http://${emulatorHost}/download/storage/v1/b/${bucketName}/o/${encodeURIComponent(thumbPath)}?alt=media`
+      return res.json({ url })
+    }
+
+    // Production: use the public firebase storage REST endpoint
+    const url = `https://firebasestorage.googleapis.com/v0/b/${bucketName}/o/${encodeURIComponent(thumbPath)}?alt=media`
+    res.json({ url })
+  } catch (err) {
+    console.error('thumbnail-url error', err)
     res.status(500).json({ error: err.message })
   }
 })
@@ -206,6 +338,55 @@ app.patch('/quotes/:id/claim', async (req, res) => {
     res.json(result)
   } catch (err) {
     console.error('quote claim error', err)
+    res.status(500).json({ error: err.message })
+  }
+})
+
+// Create a Stripe Checkout session to pay for a quote and create an order
+app.post('/quotes/:id/checkout', async (req, res) => {
+  try {
+    if (!process.env.STRIPE_SECRET) return res.status(501).json({ error: 'Stripe not configured on this environment' })
+    const id = req.params.id
+    const db = admin.firestore()
+    const qref = await db.collection('quotes').doc(id).get()
+    if (!qref.exists) return res.status(404).json({ error: 'Quote not found' })
+    const quote = qref.data()
+
+    const amountCents = Math.max(100, Math.round((Number(quote.estimate) || 0) * 100))
+
+    // Create order record first
+    const orderDoc = await db.collection('orders').add({
+      sourceQuoteId: id,
+      email: quote.email || null,
+      fileName: quote.fileName || '',
+      estimatedPrice: quote.estimate || '',
+      amountCents,
+      currency: 'usd',
+      status: 'checkout_created',
+      createdAt: new Date().toISOString(),
+    })
+
+    // Create Stripe Checkout Session
+    const origin = req.headers.origin || 'https://example.com'
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ['card'],
+      line_items: [{
+        price_data: {
+          currency: 'usd',
+          product_data: { name: `YoursPrinted Order ${orderDoc.id}` },
+          unit_amount: amountCents,
+        },
+        quantity: 1,
+      }],
+      mode: 'payment',
+      success_url: `${origin}/?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${origin}/`,
+      client_reference_id: orderDoc.id,
+    })
+
+    res.json({ url: session.url, sessionId: session.id, orderId: orderDoc.id })
+  } catch (err) {
+    console.error('checkout error', err)
     res.status(500).json({ error: err.message })
   }
 })

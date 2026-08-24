@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from 'react'
+import { auth } from './firebase'
+import { onAuthStateChanged } from 'firebase/auth'
 
 export default function Nav(){
   const [open, setOpen] = useState(false)
   const [path, setPath] = useState(window.location.pathname + window.location.hash)
+  const [user, setUser] = useState(null)
 
   useEffect(()=>{
     const onPop = ()=> setPath(window.location.pathname + window.location.hash)
     window.addEventListener('popstate', onPop)
-    return ()=> window.removeEventListener('popstate', onPop)
+    const unsub = onAuthStateChanged(auth, u=> setUser(u))
+    return ()=> { window.removeEventListener('popstate', onPop); unsub && unsub() }
   },[])
 
   function navigate(href){
@@ -51,6 +55,11 @@ export default function Nav(){
     {label:'Sign in', href:'/signin'},
     {label:'My account', href:'/account'}
   ]
+
+  // Show admin link when signed-in as the admin user
+  if(user && user.email === 'admin@yoursprinted.example'){
+    links.push({ label: 'Admin', href: '/admin' })
+  }
 
   return (
     <header className="site-nav">

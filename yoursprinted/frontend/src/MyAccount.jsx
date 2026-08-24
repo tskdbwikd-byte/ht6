@@ -78,6 +78,21 @@ export default function MyAccount(){
     }
   }
 
+  async function payForQuote(id){
+    try{
+      const res = await axios.post(`/quotes/${id}/checkout`)
+      if(res.data && res.data.url){
+        // redirect to Stripe Checkout
+        window.location.href = res.data.url
+      } else {
+        alert('Checkout not available: ' + (res.data && res.data.error))
+      }
+    }catch(err){
+      console.error('checkout error', err)
+      alert('Could not start checkout')
+    }
+  }
+
   if(!user) return (
     <div style={{maxWidth:900,margin:'24px auto',padding:20}}>
       <h2>My account</h2>
@@ -126,6 +141,9 @@ export default function MyAccount(){
                   <button className="btn" onClick={()=>claimQuote(q.id)}>Claim</button>
                   <button className="btn primary" onClick={()=>claimAndCreateOrder(q.id)}>Claim & Create Order</button>
                 </div>}
+                <div style={{marginTop:8}}>
+                  <button className="btn" onClick={()=>payForQuote(q.id)}>Pay</button>
+                </div>
               </div>
             </div>
             <div style={{marginTop:8,color:'var(--muted)'}}>{q.notes || ''}</div>

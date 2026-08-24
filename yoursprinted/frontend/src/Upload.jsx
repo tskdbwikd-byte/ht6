@@ -7,6 +7,9 @@ import FilePreview from './FilePreview'
 export default function Upload(){
   const [user, setUser] = useState(null)
   const [file, setFile] = useState(null)
+  const [storagePath, setStoragePath] = useState(null)
+  const [uploading, setUploading] = useState(false)
+  const [uploadProgress, setUploadProgress] = useState(0)
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')
@@ -28,10 +31,66 @@ export default function Upload(){
 
   // form no longer uploads or charges — only provides quotes
 
+  async function uploadFileToStorage(selectedFile){
+    if(!selectedFile) return null
+    try{
+      setUploading(true)
+      setUploadProgress(0)
+      const res = await axios.post('/api/upload-url', { fileName: selectedFile.name, contentType: selectedFile.type })
+      const { url, path, emulator } = res.data || {}
+      if(!url) throw new Error('No upload url')
+
+      // Use axios PUT when possible to get upload progress in browsers
+      await axios.put(url, selectedFile, {
+        headers: { 'Content-Type': selectedFile.type || 'application/octet-stream' },
+        onUploadProgress: (evt) => {
+          if(evt.total) setUploadProgress(Math.round((evt.loaded / evt.total) * 100))
+        }
+      })
+
+      setStoragePath(path)
+
+      // start polling for thumbnail URL
+      pollForThumbnail(path)
+      return path
+    }catch(err){
+      console.error('upload error', err)
+      alert('File upload failed')
+      return null
+    }finally{ setUploading(false) }
+  }
+
+  // Poll backend for a server-generated thumbnail for the uploaded file
+  async function pollForThumbnail(path){
+    if(!path) return
+    const thumbPath = path.replace(/(\.[^/.]+)$/, '-thumb.svg')
+    const maxAttempts = 20
+    let attempts = 0
+    const wait = (ms) => new Promise(r => setTimeout(r, ms))
+    while(attempts < maxAttempts){
+      try{
+        const r = await axios.get('/api/thumbnail-url', { params: { path } })
+        const { url } = r.data || {}
+        if(url){
+          // try fetching the thumbnail resource
+          const res = await fetch(url)
+          if(res.ok){
+            setThumbUrl(url)
+            return
+          }
+        }
+      }catch(e){ /* not ready yet */ }
+      attempts += 1
+      await wait(1000)
+    }
+  }
+
   async function getQuote(e){
     e && e.preventDefault()
     if(!file) return alert('Please select a 3D file to get a quote')
     try{
+      // ensure file is uploaded first
+      if(!storagePath) await uploadFileToStorage(file)
       const est = await axios.post('/api/estimate', { volumeGrams: 50, material })
       setEstimate(est.data.price)
       // save anonymous quote for later retrieval
@@ -40,6 +99,7 @@ export default function Upload(){
           email: email || null,
           phone: phone || null,
           fileName: file.name || '',
+          storagePath: storagePath || null,
           material,
           notes,
           estimate: est.data.price,
@@ -113,6 +173,12 @@ export default function Upload(){
                 <div style={{display:'flex',gap:8,marginTop:12}}>
                   <button className="btn primary" onClick={getQuote} type="button">Get quote</button>
                 </div>
+                {uploading && <div style={{marginTop:12}}>
+                  <div style={{height:10,background:'#eee',borderRadius:6,overflow:'hidden'}}>
+                    <div style={{width:`${uploadProgress}%`,height:'100%',background:'linear-gradient(90deg,#06b6d4,#0ea5a2)'}} />
+                  </div>
+                  <div style={{fontSize:13,color:'var(--muted)',marginTop:6}}>Uploading: {uploadProgress}%</div>
+                </div>}
                 {estimate && <div style={{marginTop:12}}>Estimated price: <strong>${estimate}</strong></div>}
                 {quoteId && <div style={{marginTop:8,color:'var(--muted)'}}>Saved quote id: {quoteId}</div>}
                 {thumbUrl && <div style={{marginTop:12}}><h4>Server thumbnail</h4><img src={thumbUrl} alt="thumb" style={{maxWidth:240,border:'1px solid #ddd'}} onError={(e)=>{e.target.style.display='none'}} /></div>}
